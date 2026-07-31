@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>北商ACG研究社 - 米哈遊同好會 | 社團活動官方特刊</title>
+  <meta name="description" content="匯聚開拓者、旅行者與繩匠的熱血基地！挑戰星鐵三深淵、原神幻想真境劇詩與絕區零危局強襲，享受全方位米遊樂趣！">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Outfit:wght@600;800;900&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar Navigation -->
+  <header class="navbar">
+    <a href="#" class="navbar-brand">
+      <div class="logo-badge">M</div>
+      <div class="brand-text">
+        <h1>北商ACG研究社</h1>
+        <p>MIHOYO FAN CLUB</p>
+      </div>
+    </a>
+    
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="開選單">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero" class="active">首頁</a></li>
+      <li><a href="#games">三大遊戲活動</a></li>
+      <li><a href="#schedule">活動日程表</a></li>
+      <li><a href="#notice">注意事項公告</a></li>
+      <li class="mobile-only-join"><a href="#notice" class="btn-join">加入同好會</a></li>
+    </ul>
+
+    <a href="#notice" class="btn-join desktop-join">加入同好會</a>
+  </header>
+
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero-section">
+    <div class="hero-bg-overlay"></div>
+    <div class="container">
+      <div class="hero-subtitle">
+        <span>✨ 北商 ACG 研究社 · 米哈遊同好會</span>
+      </div>
+      <h1 class="hero-title">匯聚開拓者、旅行者與繩匠的<br><span style="background: linear-gradient(90deg, #f4c062, #ffe6a3); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">熱血冒險基地</span></h1>
+      <p class="hero-desc">挑戰深淵與高難副本，享受全方位米遊樂趣！研究極限配隊、聖遺物配置與失衡連段，無論是大佬還是萌新，都能在這裡玩得盡興！</p>
+
+      <div class="hero-tags">
+        <div class="game-tag-pill">
+          <span class="tag-icon hsr"></span>
+          <span>崩壞：星穹鐵道</span>
+        </div>
+        <div class="game-tag-pill">
+          <span class="tag-icon genshin"></span>
+          <span>原神</span>
+        </div>
+        <div class="game-tag-pill">
+          <span class="tag-icon zzz"></span>
+          <span>絕區零</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Showcase Section -->
+  <main class="container">
+
+    <!-- Game Category Tabs Filter -->
+    <section id="games" style="padding-top: 40px;">
+      <div class="section-header">
+        <h2 class="section-title">社團常態活動與版本挑戰</h2>
+        <p class="section-desc">三大主力米哈遊遊戲，專為深度玩家與休閒同好設計的交流盛宴</p>
+      </div>
+
+      <div class="game-tabs-nav">
+        <button class="tab-btn active" data-game="all">✨ 全部遊戲展示</button>
+        <button class="tab-btn hsr-tab" data-game="hsr">🌌 崩壞：星穹鐵道</button>
+        <button class="tab-btn genshin-tab" data-game="genshin">⚔️ 原神</button>
+        <button class="tab-btn zzz-tab" data-game="zzz">⚡ 絕區零</button>
+      </div>
+
+      <!-- Game Detail 1: Honkai: Star Rail -->
+      <div class="game-detail-card hsr-card" data-game="hsr">
+        <div class="card-info">
+          <span class="card-badge hsr-badge">星鐵活動詳述</span>
+          <h3 class="card-title">一、 崩壞：星穹鐵道（星鐵）</h3>
+          <p class="card-desc">著重於回合制策略、隊伍屬性克制與星魂/光錐配置的極致搭配。社員們將一同研究配隊、速度調整與 buff 利用，追求滿星通關與最高積分！</p>
+
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-header">
+                <span class="activity-name">1. 三深淵挑戰（混沌回憶、虛構敘事、末日幻影）</span>
+                <span class="activity-freq">兩周擇日舉辦一次</span>
+              </div>
+              <p class="activity-detail">涵蓋高難回合限制的「混沌回憶」（考驗單體及雙王陣容輸出）、主打群體清怪與特殊機制的「虛構敘事」，以及考驗擊破特攻與 Boss 機制應對的「末日幻影」。</p>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-header">
+                <span class="activity-name">2. 版本更新特輯（異相仲裁）</span>
+                <span class="activity-freq">版本更新日擇日舉辦</span>
+              </div>
+              <p class="activity-detail">在全新版本上線當天或近期，第一時間體驗新版本推出的特殊機制、活動挑戰與首發陣容測試，享受開荒期探索與研究全新配隊的樂趣。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="screenshot-box">
+          <img src="images/image1.png" alt="崩壞星穹鐵道 逐光撿金與混沌回憶 36/36 滿星介面" class="screenshot-img">
+          <div class="screenshot-overlay">
+            <span class="screenshot-caption">🌌 星際和平指南 - 混沌回憶/末日幻影滿星實測</span>
+            <span class="screenshot-zoom-btn">🔍 點擊放大查看</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game Detail 2: Genshin Impact -->
+      <div class="game-detail-card genshin-card" data-game="genshin">
+        <div class="card-info">
+          <span class="card-badge genshin-badge">原神活動詳述</span>
+          <h3 class="card-title">二、 原神 (Genshin Impact)</h3>
+          <p class="card-desc">考驗玩家對元素反應、角色練度、聖遺物配置以及多樣化角色池（配隊廣度）的掌控能力。活動期間將帶領社員挑戰層層關卡，分享通關密技與陣容搭配！</p>
+
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-header">
+                <span class="activity-name">1. 雙波挑戰（深境螺旋、幻想真境劇詩）</span>
+                <span class="activity-freq">每月 1號 / 16號 那周擇日舉辦</span>
+              </div>
+              <p class="activity-detail">包含經典的硬派戰鬥「深境螺旋」（檢驗深厚角色練度與輸出循環）以及考驗調動大量角色、隨機應變與元素屬性限制的「幻想真境劇詩」。</p>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-header">
+                <span class="activity-name">2. 主題戰鬥挑戰（幽靜危戰）</span>
+                <span class="activity-freq">版本更新後兩周擇日舉辦</span>
+              </div>
+              <p class="activity-detail">針對版本中推出的高難度戰鬥挑戰活動（如幽靜危戰等特色高難關卡），深入研究關卡特殊加成與敵人弱點，挑戰高分與極限通關。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="screenshot-box">
+          <img src="images/image2.png" alt="原神 幻想真境劇詩 月論模式第10幕滿星介面" class="screenshot-img">
+          <div class="screenshot-overlay">
+            <span class="screenshot-caption">⚔️ 幻想真境劇詩 - 演出回顧與陣容實況</span>
+            <span class="screenshot-zoom-btn">🔍 點擊放大查看</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game Detail 3: Zenless Zone Zero -->
+      <div class="game-detail-card zzz-card" data-game="zzz">
+        <div class="card-info">
+          <span class="card-badge zzz-badge">絕區零活動詳述</span>
+          <h3 class="card-title">三、 絕區零 (Zenless Zone Zero)</h3>
+          <p class="card-desc">結合了爽快的動作爽感、失衡機制、極限閃避與招架支援操作。透過活動讓社員們互相切磋操作技巧、代理人音擎配置與失衡輸出循環！</p>
+
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-header">
+                <span class="activity-name">1. 雙深淵激戰（式與防衛、危局強襲）</span>
+                <span class="activity-freq">兩周擇日舉辦一次</span>
+              </div>
+              <p class="activity-detail">包含考驗動作操作反應、連段流暢度與時間壓力的「式與防衛」，以及面對強力首腦、高壓環境的「危局強襲」，體驗新艾利都的刺激戰鬥。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="screenshot-box">
+          <img src="images/image3.png" alt="絕區零 異構·基塔布魯 絕境戰報高分 10362 介面" class="screenshot-img">
+          <div class="screenshot-overlay">
+            <span class="screenshot-caption">⚡ 異構·基塔布魯 - 絕境戰報 10362 高分紀錄</span>
+            <span class="screenshot-zoom-btn">🔍 點擊放大查看</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Schedule Grid Section -->
+    <section id="schedule" style="padding-top: 20px;">
+      <div class="section-header">
+        <h2 class="section-title">社團活動週期時間表</h2>
+        <p class="section-desc">掌握活動規律，提前準備隊伍與練度</p>
+      </div>
+
+      <div class="schedule-grid">
+        <div class="schedule-card hsr">
+          <div class="schedule-header">
+            <span class="schedule-game-name">崩壞：星穹鐵道</span>
+            <span class="schedule-time-badge">雙周 / 版本更新</span>
+          </div>
+          <p style="font-size: 14px; color: var(--text-muted);">
+            • <strong>三深淵挑戰</strong>：每兩周擇日進行乙次。<br>
+            • <strong>異相仲裁</strong>：大版本更新日擇日舉辦。
+          </p>
+        </div>
+
+        <div class="schedule-card genshin">
+          <div class="schedule-header">
+            <span class="schedule-game-name">原神</span>
+            <span class="schedule-time-badge">每月 1號 / 16號</span>
+          </div>
+          <p style="font-size: 14px; color: var(--text-muted);">
+            • <strong>深境螺旋 & 劇詩</strong>：每月 1/16 號當周舉辦。<br>
+            • <strong>主題戰鬥</strong>：版本更新後兩周內擇日舉辦。
+          </p>
+        </div>
+
+        <div class="schedule-card zzz">
+          <div class="schedule-header">
+            <span class="schedule-game-name">絕區零</span>
+            <span class="schedule-time-badge">每兩周舉辦</span>
+          </div>
+          <p style="font-size: 14px; color: var(--text-muted);">
+            • <strong>式與防衛 & 危局強襲</strong>：每兩周擇日舉辦，切磋失衡連段與極限閃避。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notice Section -->
+    <section id="notice" class="notice-section">
+      <div class="notice-card">
+        <div class="notice-icon">📢</div>
+        <div class="notice-content">
+          <h3>四、 注意事項與說明【能力有限公告】</h3>
+          <p>由於社團人力與時間有限，若各款遊戲的活動行程不巧撞到同一周，且當周因時間或人力限制無法將所有排程全部完成時，相關活動將會<strong>「順延舉辦」</strong>。造成不便，敬請見諒！</p>
+          <p style="margin-top: 12px; color: var(--gold-bright); font-weight: 600;">
+            ✨ 歡迎各位同好一同共襄盛舉！無論你是大佬還是萌新，都能在這裡互相交流疊影、配裝與通關技巧，一起在米遊的世界裡玩得盡興！
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Image Lightbox Modal -->
+  <div id="imageModal" class="modal-overlay">
+    <div class="modal-content">
+      <span id="modalClose" class="modal-close">&times;</span>
+      <img id="modalImage" src="" alt="遊戲畫面大圖展示">
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p style="font-weight: 700; color: var(--text-main);">【北商ACG研究社 - 米哈遊同好會】</p>
+      <p>星鐵 · 原神 · 絕區零 玩家戰術交流與高難副本攻略聚會</p>
+      <p style="font-size: 11px; opacity: 0.6; margin-top: 12px;">© 2026 北商ACG研究社. All rights reserved. 遊戲內容版權歸 miHoYo / HoYoverse 所有。</p>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+</body>
+</html>
