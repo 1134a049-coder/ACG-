@@ -1,0 +1,3658 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網頁程式設計：新手學習手冊與檢定系統</title>
+    <meta name="description" content="零基礎網頁程式設計入門手冊與考題練習系統。包含HTML語意、CSS佈局實驗室與JS基礎，對齊證照學科考試，提供互動式盒模型與Display模擬器。">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            /* Light Theme */
+            --bg-gradient-1: #f0f4f8;
+            --bg-gradient-2: #e8eef5;
+            --sidebar-bg: rgba(255, 255, 255, 0.8);
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(255, 255, 255, 0.5);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary: #0ea5e9;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            --shadow: rgba(15, 23, 42, 0.08);
+            --option-bg: rgba(255, 255, 255, 0.9);
+            --option-border: #e2e8f0;
+            --option-hover: #f1f5f9;
+            --card-shadow: 0 10px 30px 0 rgba(31, 38, 135, 0.05);
+            --sidebar-width: 280px;
+
+            /* Visual Box Colors */
+            --box-margin: rgba(249, 115, 22, 0.15);
+            --box-margin-border: #f97316;
+            --box-border: rgba(148, 163, 184, 0.25);
+            --box-border-border: #64748b;
+            --box-padding: rgba(34, 197, 94, 0.15);
+            --box-padding-border: #22c55e;
+            --box-content: rgba(59, 130, 246, 0.2);
+            --box-content-border: #3b82f6;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme */
+            --bg-gradient-1: #090d16;
+            --bg-gradient-2: #0f172a;
+            --sidebar-bg: rgba(15, 23, 42, 0.8);
+            --card-bg: rgba(30, 41, 59, 0.6);
+            --card-border: rgba(255, 255, 255, 0.06);
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary: #38bdf8;
+            --success: #34d399;
+            --error: #f87171;
+            --warning: #fbbf24;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --option-bg: rgba(15, 23, 42, 0.6);
+            --option-border: rgba(255, 255, 255, 0.08);
+            --option-hover: rgba(255, 255, 255, 0.04);
+            --card-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.3);
+
+            /* Visual Box Colors */
+            --box-margin: rgba(249, 115, 22, 0.25);
+            --box-margin-border: #ea580c;
+            --box-border: rgba(100, 116, 139, 0.35);
+            --box-border-border: #94a3b8;
+            --box-padding: rgba(22, 163, 74, 0.25);
+            --box-padding-border: #16a34a;
+            --box-content: rgba(37, 99, 235, 0.3);
+            --box-content-border: #2563eb;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-1), var(--bg-gradient-2));
+            background-attachment: fixed;
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-right: 1px solid var(--card-border);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            padding: 30px 20px;
+            box-shadow: 2px 0 20px var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-area {
+            margin-bottom: 35px;
+        }
+
+        .logo-area h2 {
+            font-size: 1.4rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-area p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .menu-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-grow: 1;
+        }
+
+        .menu-item button {
+            width: 100%;
+            padding: 12px 16px;
+            background: transparent;
+            border: none;
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .menu-item.active button,
+        .menu-item button:hover {
+            color: var(--primary);
+            background: var(--card-bg);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .menu-item.active button {
+            border: 1px solid var(--card-border);
+        }
+
+        .menu-header {
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-secondary);
+            margin: 18px 0 6px 16px;
+            opacity: 0.65;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .sidebar nav {
+            overflow-y: auto;
+            flex-grow: 1;
+            margin-bottom: 15px;
+            padding-right: 5px;
+        }
+        
+        .sidebar nav::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .sidebar nav::-webkit-scrollbar-thumb {
+            background: var(--card-border);
+            border-radius: 4px;
+        }
+
+
+        .sidebar-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--option-border);
+            padding-top: 20px;
+        }
+
+        .theme-toggle,
+        .history-trigger {
+            background: var(--option-bg);
+            border: 1px solid var(--option-border);
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .theme-toggle:hover,
+        .history-trigger:hover {
+            background: var(--option-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Header */
+        .mobile-header {
+            display: none;
+            width: 100%;
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 15px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 90;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .hamburger {
+            font-size: 1.5rem;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        /* Content Area */
+        .content-container {
+            margin-left: var(--sidebar-width);
+            flex-grow: 1;
+            padding: 40px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            max-width: calc(100% - var(--sidebar-width));
+            transition: all 0.3s ease;
+        }
+
+        .page-panel {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .page-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Typography & Components */
+        h1.page-title {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.page-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        h2.section-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin: 35px 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2.section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: var(--card-shadow);
+        }
+
+        /* Concept Badge */
+        .concept-badge {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: 'IBM Plex Mono', monospace;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        /* Demo Boxes & Handbooks */
+        .tag-handbook {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .tag-item {
+            border-bottom: 1px solid var(--option-border);
+            padding-bottom: 20px;
+        }
+
+        .tag-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .tag-name {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .tag-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        /* Live Preview Window */
+        .preview-box {
+            background: var(--option-bg);
+            border: 1px dashed var(--option-border);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .preview-box::before {
+            content: 'LIVE PREVIEW';
+            position: absolute;
+            top: 6px;
+            right: 12px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        /* Interactive table styling */
+        .demo-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .demo-table th,
+        .demo-table td {
+            border: 1px solid var(--option-border);
+            padding: 10px 15px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .demo-table th {
+            background: rgba(99, 102, 241, 0.05);
+            font-weight: 700;
+        }
+
+        /* Figure component demo */
+        .demo-figure {
+            border: 1px solid var(--option-border);
+            background: var(--card-bg);
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 250px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .demo-img-placeholder {
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(135deg, #a5b4fc, #818cf8);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .demo-figcaption {
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Interactive CSS Lab */
+        .simulator-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .simulator-grid {
+                grid-template-columns: 1.2fr 1fr;
+            }
+        }
+
+        .control-sliders {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .slider-header span.val {
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--primary);
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: var(--option-border);
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Visual Box Model Diagram */
+        .box-model-visualizer {
+            background: var(--option-bg);
+            border: 1px solid var(--option-border);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 280px;
+        }
+
+        /* Outer Margin box */
+        .visual-margin {
+            background: var(--box-margin);
+            border: 2px dashed var(--box-margin-border);
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            transition: padding 0.1s ease;
+        }
+
+        .visual-margin::before {
+            content: 'Margin';
+            position: absolute;
+            top: 2px;
+            left: 6px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--box-margin-border);
+        }
+
+        /* Border box */
+        .visual-border {
+            background: var(--box-border);
+            border: 2px solid var(--box-border-border);
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            transition: padding 0.1s ease, border-width 0.1s ease;
+        }
+
+        .visual-border::before {
+            content: 'Border';
+            position: absolute;
+            top: 2px;
+            left: 6px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--box-border-border);
+        }
+
+        /* Padding box */
+        .visual-padding {
+            background: var(--box-padding);
+            border: 2px dashed var(--box-padding-border);
+            padding: 20px;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            transition: padding 0.1s ease;
+        }
+
+        .visual-padding::before {
+            content: 'Padding';
+            position: absolute;
+            top: 2px;
+            left: 6px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--box-padding-border);
+        }
+
+        /* Content box */
+        .visual-content {
+            background: var(--box-content);
+            border: 2px solid var(--box-content-border);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 100%;
+            height: 70px;
+            transition: width 0.1s ease, height 0.1s ease;
+            text-align: center;
+        }
+
+        .visual-content span {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .visual-content::before {
+            content: 'Content';
+            position: absolute;
+            top: 2px;
+            left: 6px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--box-content-border);
+        }
+
+        /* Sizing stats output */
+        .sizing-summary {
+            margin-top: 20px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .summary-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 10px 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .summary-val {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .summary-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        /* Display tester components */
+        .display-demo-area {
+            background: var(--option-bg);
+            border: 1px solid var(--option-border);
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 100px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .display-box-item {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+            box-shadow: 0 4px 6px var(--shadow);
+            transition: all 0.25s ease;
+        }
+
+        .display-box-item.target {
+            background: var(--secondary);
+            border: 2px solid white;
+        }
+
+        .display-box-item.target.display-block {
+            display: block;
+            width: 100%;
+        }
+
+        .display-box-item.target.display-inline-block {
+            display: inline-block;
+            width: 120px;
+            height: 60px;
+        }
+
+        .display-box-item.target.display-none {
+            display: none;
+        }
+
+        /* JS/DOM Demo Page components */
+        .js-demo-button {
+            padding: 12px 24px;
+            border-radius: 10px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .js-demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .js-code-display {
+            font-family: 'IBM Plex Mono', monospace;
+            background: #0f172a;
+            color: #38bdf8;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-top: 15px;
+            overflow-x: auto;
+        }
+
+        /* EXAM STYLE LOGIC (PREVIOUSLY BUILT) */
+        /* Nav Tabs */
+        .exam-tabs {
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 6px;
+            border-radius: 12px;
+            border: 1px solid var(--option-border);
+            margin-bottom: 25px;
+        }
+
+        [data-theme="dark"] .exam-tabs {
+            background: rgba(15, 23, 42, 0.4);
+        }
+
+        .exam-tab-btn {
+            flex: 1;
+            padding: 10px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .exam-tab-btn.active {
+            background: var(--card-bg);
+            color: var(--primary);
+            box-shadow: 0 3px 10px var(--shadow);
+            border: 1px solid var(--card-border);
+        }
+
+        .exam-tab-btn:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        .exam-panel {
+            display: none;
+        }
+
+        .exam-panel.active {
+            display: block;
+        }
+
+        /* Progress tracker */
+        .progress-section {
+            margin-bottom: 25px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: var(--option-border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* Question Card */
+        .q-card {
+            background: var(--option-bg);
+            border-radius: 16px;
+            border: 1px solid var(--option-border);
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px var(--shadow);
+            position: relative;
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .q-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .q-badge.html {
+            background: rgba(249, 115, 22, 0.15);
+            color: #f97316;
+        }
+
+        .q-badge.css_js {
+            background: rgba(6, 182, 212, 0.15);
+            color: #06b6d4;
+        }
+
+        .q-num {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .q-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        /* Options */
+        .options-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .options-list.grid-mode {
+            grid-template-columns: 1fr;
+        }
+
+        @media(min-width: 600px) {
+            .options-list.grid-mode {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .option {
+            background: var(--option-bg);
+            border: 1px solid var(--option-border);
+            padding: 14px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            width: 100%;
+        }
+
+        .option:hover:not(.selected):not(.disabled) {
+            background: var(--option-hover);
+            border-color: var(--primary);
+            transform: translateX(3px);
+        }
+
+        .option-prefix {
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: 700;
+            color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .option.selected {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.08);
+        }
+
+        .option.correct {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.08);
+            color: var(--success);
+        }
+
+        .option.correct .option-prefix {
+            background: var(--success);
+            color: white;
+        }
+
+        .option.incorrect {
+            border-color: var(--error);
+            background: rgba(239, 68, 68, 0.06);
+            color: var(--error);
+        }
+
+        .option.incorrect .option-prefix {
+            background: var(--error);
+            color: white;
+        }
+
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        /* Control Buttons */
+        .control-panel {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn.primary-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+        }
+
+        .action-btn.primary-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .action-btn.secondary-btn {
+            background: var(--option-bg);
+            border: 1px solid var(--option-border);
+            color: var(--text-primary);
+        }
+
+        .action-btn.secondary-btn:hover {
+            background: var(--option-hover);
+        }
+
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Collapsible Accordion Styles */
+        .collapsible-parent details {
+            transition: all 0.25s ease;
+        }
+
+        .collapsible-parent details[open] {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px var(--shadow);
+            background: var(--card-bg);
+        }
+
+        .collapsible-parent details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .collapsible-parent details summary {
+            list-style: none;
+        }
+
+        /* Alert Box */
+        .alert-box {
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            display: none;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+
+        .alert-box.success {
+            display: flex;
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+
+        .alert-box.error {
+            display: flex;
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid var(--error);
+            color: var(--error);
+        }
+
+        /* Exam Layout */
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--option-border);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .timer-box {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.15rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--warning);
+            background: rgba(245, 158, 11, 0.08);
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--warning);
+        }
+
+        .timer-box.urgent {
+            color: var(--error);
+            border-color: var(--error);
+            background: rgba(239, 68, 68, 0.08);
+            animation: pulse 1s infinite alternate;
+        }
+
+        .exam-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .exam-grid {
+                grid-template-columns: 2fr 1.1fr;
+            }
+        }
+
+        .exam-sidebar {
+            background: var(--option-bg);
+            border: 1px solid var(--option-border);
+            border-radius: 16px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-self: flex-start;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+        }
+
+        .nav-btn {
+            aspect-ratio: 1;
+            border: 1px solid var(--option-border);
+            background: var(--card-bg);
+            color: var(--text-primary);
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'IBM Plex Mono', monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        .nav-btn.answered {
+            background: rgba(99, 102, 241, 0.15);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .nav-btn.current {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .nav-btn.marked {
+            border-color: var(--warning);
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+            position: relative;
+        }
+
+        .nav-btn.marked::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--warning);
+        }
+
+        /* Results dashboard */
+        .result-dashboard {
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.2);
+        }
+
+        .score-circle .score-num {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .score-circle .score-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+        }
+
+        .result-status {
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .result-status.pass {
+            color: var(--success);
+        }
+
+        .result-status.fail {
+            color: var(--error);
+        }
+
+        .result-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: var(--option-bg);
+            border: 1px solid var(--option-border);
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .stat-val {
+            font-size: 1.3rem;
+            font-weight: 800;
+            font-family: 'IBM Plex Mono', monospace;
+            margin-bottom: 3px;
+        }
+
+        .stat-val.correct {
+            color: var(--success);
+        }
+
+        .stat-val.incorrect {
+            color: var(--error);
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        /* Study filter and questions list */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex-grow: 1;
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--option-border);
+            background: var(--option-bg);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .filter-tags {
+            display: flex;
+            gap: 6px;
+        }
+
+        .filter-tag {
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--option-border);
+            background: var(--option-bg);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .filter-tag.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .study-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .study-card {
+            background: var(--option-bg);
+            border: 1px solid var(--option-border);
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .answer-reveal {
+            margin-top: 10px;
+            padding: 10px 12px;
+            background: rgba(16, 185, 129, 0.06);
+            border-left: 3px solid var(--success);
+            border-radius: 0 6px 6px 0;
+            font-weight: 600;
+            color: var(--success);
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .answer-reveal.visible {
+            display: block;
+        }
+
+        /* Modal Score History */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--card-border);
+            box-shadow: var(--card-shadow);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 460px;
+            padding: 20px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--option-border);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .modal-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+        }
+
+        .close-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .history-list {
+            max-height: 220px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .history-item {
+            background: var(--option-bg);
+            border: 1px solid var(--option-border);
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-score {
+            font-weight: 800;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .history-score.pass {
+            color: var(--success);
+        }
+
+        .history-score.fail {
+            color: var(--error);
+        }
+
+        .history-date {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* Collapsible Code Blocks */
+        details.code-demo {
+            margin-top: 12px;
+            background: var(--option-bg);
+            border: 1px solid var(--option-border);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        details.code-demo summary {
+            padding: 8px 15px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: var(--primary);
+            cursor: pointer;
+            outline: none;
+            user-select: none;
+            background: rgba(99, 102, 241, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        details.code-demo summary:hover {
+            background: rgba(99, 102, 241, 0.08);
+        }
+
+        details.code-demo summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details.code-demo summary::before {
+            content: '▶';
+            display: inline-block;
+            font-size: 0.65rem;
+            transition: transform 0.2s ease;
+        }
+
+        details.code-demo[open] summary::before {
+            transform: rotate(90deg);
+        }
+
+        details.code-demo pre {
+            margin: 0;
+            background: #0f172a;
+            color: #38bdf8;
+            padding: 12px 15px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            border-top: 1px solid var(--option-border);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .mobile-header {
+                display: flex;
+            }
+
+            .content-container {
+                margin-left: 0;
+                max-width: 100%;
+                padding: 80px 20px 20px;
+            }
+        }
+
+        /* Toggle Switch */
+        .switch-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--option-bg);
+            padding: 8px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--option-border);
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider-switch {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--option-border);
+            transition: .3s ease;
+            border-radius: 24px;
+        }
+
+        .slider-switch:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s ease;
+            border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+        }
+
+        input:checked + .slider-switch {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider-switch:before {
+            transform: translateX(20px);
+        }
+
+        /* --- Expanded Educational Components CSS --- */
+        .flex-simulator-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        @media (min-width: 768px) {
+            .flex-simulator-container {
+                grid-template-columns: 320px 1fr;
+            }
+        }
+        .flex-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: var(--option-bg);
+            border: 1px solid var(--option-border);
+            padding: 18px;
+            border-radius: 12px;
+        }
+        .flex-ctrl-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .flex-ctrl-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+        .flex-btn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 6px;
+        }
+        .flex-ctrl-btn {
+            font-family: inherit;
+            font-size: 0.75rem;
+            padding: 6px 8px;
+            border: 1px solid var(--option-border);
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+        .flex-ctrl-btn:hover {
+            background: var(--option-hover);
+            border-color: var(--primary);
+        }
+        .flex-ctrl-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            font-weight: 700;
+        }
+        .flex-preview-area {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .flex-canvas {
+            display: flex;
+            border: 2px dashed var(--option-border);
+            border-radius: 12px;
+            background: rgba(99, 102, 241, 0.02);
+            min-height: 220px;
+            padding: 15px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+        }
+        .flex-item-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .flex-item-box:nth-child(1) { background: linear-gradient(135deg, #ff6b6b, #ee5253); }
+        .flex-item-box:nth-child(2) { background: linear-gradient(135deg, #10ac84, #1dd1a1); }
+        .flex-item-box:nth-child(3) { background: linear-gradient(135deg, #2e86de, #54a0ff); }
+        .flex-item-box:nth-child(4) { background: linear-gradient(135deg, #ff9f43, #f39c12); }
+        .flex-item-box:nth-child(5) { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        
+        .flex-code-box {
+            background: #0f172a;
+            color: #38bdf8;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            overflow-x: auto;
+        }
+        
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.88rem;
+        }
+        .info-table th, .info-table td {
+            border: 1px solid var(--option-border);
+            padding: 10px 12px;
+            text-align: left;
+        }
+        .info-table th {
+            background: rgba(99, 102, 241, 0.05);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .info-table tr:nth-child(even) {
+            background: rgba(0, 0, 0, 0.01);
+        }
+        
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .grid-card {
+            background: var(--option-bg);
+            border: 1px solid var(--option-border);
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(99, 102, 241, 0.02);
+            border-radius: 12px;
+            border: 1px solid var(--option-border);
+        }
+        @media (min-width: 640px) {
+            .flow-diagram {
+                flex-direction: row;
+            }
+        }
+        .flow-node {
+            background: var(--card-bg);
+            border: 1px solid var(--option-border);
+            padding: 12px 18px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.88rem;
+            min-width: 140px;
+            box-shadow: var(--shadow);
+        }
+        .flow-arrow {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 700;
+            transform: rotate(90deg);
+        }
+        @media (min-width: 640px) {
+            .flow-arrow {
+                transform: rotate(0deg);
+            }
+        }
+
+        /* Grid Simulator styling */
+        .grid-simulator-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        @media (min-width: 768px) {
+            .grid-simulator-container {
+                grid-template-columns: 320px 1fr;
+            }
+        }
+        .grid-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: var(--option-bg);
+            border: 1px solid var(--option-border);
+            padding: 18px;
+            border-radius: 12px;
+        }
+        .grid-canvas {
+            display: grid;
+            border: 2px dashed var(--option-border);
+            border-radius: 12px;
+            background: rgba(99, 102, 241, 0.02);
+            min-height: 220px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        .grid-item-box {
+            min-height: 60px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .grid-item-box:nth-child(1) { background: linear-gradient(135deg, #ff6b6b, #ee5253); }
+        .grid-item-box:nth-child(2) { background: linear-gradient(135deg, #10ac84, #1dd1a1); }
+        .grid-item-box:nth-child(3) { background: linear-gradient(135deg, #2e86de, #54a0ff); }
+        .grid-item-box:nth-child(4) { background: linear-gradient(135deg, #ff9f43, #f39c12); }
+        .grid-item-box:nth-child(5) { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .grid-item-box:nth-child(6) { background: linear-gradient(135deg, #00d2d3, #01a3a4); }
+
+        /* Transform Simulator styling */
+        .transform-simulator-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        @media (min-width: 768px) {
+            .transform-simulator-container {
+                grid-template-columns: 320px 1fr;
+            }
+        }
+        .transform-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: var(--option-bg);
+            border: 1px solid var(--option-border);
+            padding: 18px;
+            border-radius: 12px;
+        }
+        .transform-preview-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed var(--option-border);
+            border-radius: 12px;
+            background: rgba(99, 102, 241, 0.02);
+            min-height: 250px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .transform-preview-card {
+            width: 160px;
+            height: 160px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 700;
+            padding: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .transform-preview-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+        }
+        
+        /* Question and option images style */
+        .question-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 12px 0;
+            border: 1px solid var(--option-border);
+            background-color: #fbf9f4; /* Match原PDF暖白底色 */
+            box-shadow: 0 2px 4px var(--shadow);
+            display: block;
+        }
+        .option-image {
+            max-width: 100%;
+            max-height: 120px;
+            height: auto;
+            border-radius: 6px;
+            margin: 4px 0;
+            border: 1px solid transparent;
+            vertical-align: middle;
+        }
+        /* Dark mode brightness adjustments */
+        [data-theme="dark"] .question-image,
+        [data-theme="dark"] .option-image {
+            opacity: 0.88;
+            filter: brightness(0.85) contrast(1.15);
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <div class="logo-area" style="margin-bottom: 0;">
+            <h2 style="font-size: 1.1rem;">Python ICTP 練習網</h2>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="選單">☰</button>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-area">
+            <h2>Python 國際認證</h2>
+            <p>ICTP 300 題模擬練習系統</p>
+        </div>
+
+        <nav aria-label="主要選單">
+            <ul class="menu-list">
+                <li class="menu-item active" id="menu-roadmap" onclick="switchPage('roadmap')">
+                    <button><span>🏠</span>檢定準備指南</button>
+                </li>
+                <li class="menu-header">📋 模擬練習大綱</li>
+                <li class="menu-item" id="menu-set1" onclick="switchPage('set1')">
+                    <button><span>📝</span>卷一：基礎程式 (100題)</button>
+                </li>
+                <li class="menu-item" id="menu-set2" onclick="switchPage('set2')">
+                    <button><span>📝</span>卷二：型態與邏輯 (70題)</button>
+                </li>
+                <li class="menu-item" id="menu-set3" onclick="switchPage('set3')">
+                    <button><span>📝</span>卷三：控制結構 (80題)</button>
+                </li>
+                <li class="menu-item" id="menu-set4" onclick="switchPage('set4')">
+                    <button><span>📝</span>卷四：函式與除錯 (50題)</button>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="history-trigger" id="sidebarHistoryBtn" title="測驗紀錄" aria-label="歷史測驗紀錄">📊</button>
+            <button class="theme-toggle" id="sidebarThemeBtn" title="切換主題" aria-label="切換深淺色主題">🌙</button>
+        </div>
+    </aside>
+
+    <!-- Content Area -->
+    <main class="content-container">
+
+        <!-- PAGE 1: Roadmap (Python 證照簡介與指南) -->
+        <section class="page-panel active" id="page-roadmap">
+            <h1 class="page-title">🏠 Python ICTP 國際認證準備指南</h1>
+            <p class="page-desc">歡迎使用 Python 國際認證模擬練習系統！本系統收錄官方完整題庫共 300 題，分為四卷進行互動練習與模擬檢定。</p>
+
+            <div class="card">
+                <h3 style="margin-bottom: 15px; font-size: 1.2rem;">💡 Python ICTP 檢定範圍說明</h3>
+                <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 15px;">
+                    本題庫涵蓋 Python 程式設計的四大核心技能領域：
+                </p>
+                <div style="display: grid; grid-template-columns: 1fr; gap: 15px;">
+                    <div style="background: var(--option-bg); border: 1px solid var(--option-border); padding: 15px; border-radius: 10px; display: flex; gap: 15px; align-items: flex-start;">
+                        <span style="font-size: 2rem; line-height: 1;">⚙️</span>
+                        <div>
+                            <h4 style="font-weight: 700; margin-bottom: 4px;">卷一：基礎程式設計 (100 題)</h4>
+                            <p style="font-size: 0.88rem; color: var(--text-secondary);">包含變數命名、註解寫法、運算子與基本算術（如除法 / 與整除 // 區別）、基本輸入輸出等核心基礎。</p>
+                        </div>
+                    </div>
+                    <div style="background: var(--option-bg); border: 1px solid var(--option-border); padding: 15px; border-radius: 10px; display: flex; gap: 15px; align-items: flex-start;">
+                        <span style="font-size: 2rem; line-height: 1;">📊</span>
+                        <div>
+                            <h4 style="font-weight: 700; margin-bottom: 4px;">卷二：資料型態與邏輯運算 (70 題)</h4>
+                            <p style="font-size: 0.88rem; color: var(--text-secondary);">包含數值表示範圍、邏輯運算子 (and, or, not)、字串操作與重複串接、檔案處理模式 (wb, rb 二進位) 等內容。</p>
+                        </div>
+                    </div>
+                    <div style="background: var(--option-bg); border: 1px solid var(--option-border); padding: 15px; border-radius: 10px; display: flex; gap: 15px; align-items: flex-start;">
+                        <span style="font-size: 2rem; line-height: 1;">🔄</span>
+                        <div>
+                            <h4 style="font-weight: 700; margin-bottom: 4px;">卷三：控制結構與流程控制 (80 題)</h4>
+                            <p style="font-size: 0.88rem; color: var(--text-secondary);">包含條件決策分支 (if-elif-else)、迴圈結構 (for 搭配 range 範圍邊界、while)、隨機數生成等結構控制。</p>
+                        </div>
+                    </div>
+                    <div style="background: var(--option-bg); border: 1px solid var(--option-border); padding: 15px; border-radius: 10px; display: flex; gap: 15px; align-items: flex-start;">
+                        <span style="font-size: 2rem; line-height: 1;">🛠️</span>
+                        <div>
+                            <h4 style="font-weight: 700; margin-bottom: 4px;">卷四：函式呼叫與例外除錯 (50 題)</h4>
+                            <p style="font-size: 0.88rem; color: var(--text-secondary);">包含內建函式使用、自訂函式與參數傳遞、例外處理結構 (try-except-finally) 以及各種常見例外捕捉 (IndexError, TypeError)。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-bottom: 15px; font-size: 1.2rem;">🎯 系統使用與練習步驟</h3>
+                <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 15px;">
+                    建議您依循以下流程進行高效學習與自我複習：
+                </p>
+                <ol style="margin-left: 20px; color: var(--text-secondary); line-height: 1.7; font-size: 0.95rem;">
+                    <li style="margin-bottom: 8px;"><b>第一步：選擇試卷</b>。在左側選單中選取您要練習的卷別（如：卷一）。</li>
+                    <li style="margin-bottom: 8px;"><b>第二步：互動練習模式</b>。利用逐題作答的「互動練習模式」進行刷題。系統將即時告知回答正誤，並提供各選項解析與綜合解題技巧。系統還會<b>自動將錯題優先排在前面</b>，幫您加強記憶。</li>
+                    <li style="margin-bottom: 8px;"><b>第三步：題庫瀏覽模式</b>。切換至「題庫瀏覽模式」可一覽該卷所有題目、正解與詳解，適合考前進行快速記憶與重點掃描。</li>
+                    <li style="margin-bottom: 8px;"><b>第四步：模擬測驗驗收</b>。切換至「模擬測驗模式」，系統將從該卷中隨機抽選 25 題，進行限時 20 分鐘的隨機測驗。交卷後會給出評分與專屬錯題複習，助您輕鬆通過檢定！</li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-bottom: 15px; font-size: 1.2rem;">⚠️ 特別說明：題庫瑕疵修正</h3>
+                <p style="color: var(--text-secondary); line-height: 1.6;">
+                    本系統在解析官方題庫時，特別標註並修正了部分**官方標準答案有誤**的題目。在練習這些特定題目時，解析中會彈出「⚠️ 此題題庫答案有誤」的醒目警示，並說明正確的程式執行邏輯。請務必仔細閱讀該部分的解析，避免在實際程式開發中產生誤解！
+                </p>
+            </div>
+
+            <!-- New: Collapsible Python Knowledge Base (父集合) -->
+            <div class="card" style="margin-top: 25px;">
+                <h3 style="margin-bottom: 20px; font-size: 1.25rem; display: flex; align-items: center; gap: 8px;">
+                    <span>🎓</span> <span>Python 核心考點大白話隨身讀 (點選各主題展開)</span>
+                </h3>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">
+                    這裡幫大家整理了考題中反覆出現的 Python 技術考點，並全部換成「人話」搭配生活譬喻解釋。點選下方各個主題分類，就能一次性閱讀與快速複習喔！
+                </p>
+
+                <div class="collapsible-parent" style="display: flex; flex-direction: column; gap: 12px;">
+                    <!-- Category 1: 基礎語法與變數命名 -->
+                    <details style="background: var(--option-bg); border: 1px solid var(--option-border); border-radius: 12px; padding: 12px 18px; transition: all 0.2s ease;">
+                        <summary style="font-weight: 700; cursor: pointer; color: var(--primary); outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center; font-size: 1.05rem;">
+                            <span>📦 1. 基礎語法與變數命名 (縮排、命名、註解與輸入)</span>
+                            <span style="font-size: 0.8rem; font-family: monospace;">▼</span>
+                        </summary>
+                        <div style="margin-top: 15px; border-top: 1px solid var(--option-border); padding-top: 15px; display: flex; flex-direction: column; gap: 15px; line-height: 1.6; color: var(--text-secondary); font-size: 0.9rem;">
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">🧬 Python 縮排 (Indentation)：俄羅斯套娃的排隊線</h4>
+                                <p><b>比喻</b>：就像俄羅斯套娃，外層的套娃裝著內層的套娃。Python 用「空格縮排」來表達這段程式「屬於誰」。如果沒對齊，直譯器就會像看到排隊隊伍亂掉一樣生氣罷工，拋出 <code>IndentationError</code>！</p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">🏷️ 變數命名規則 (Naming Rules)：新寵物的身份登記</h4>
+                                <p><b>比喻</b>：幫變數取名字就像給寵物登記名字。不能用數字開頭（不然系統會分不清是名字還是數字），不能有空格或怪符號，更不能用 Python 本身已經註冊好的「關鍵字」例如 <code>if</code>、<code>def</code>、<code>for</code>（就像你不能幫寵物取名叫「總統」或「身份證」一樣，會引起系統混亂）。</p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">✍️ # 註解 (Comments)：悄悄話便條紙</h4>
+                                <p><b>比喻</b>：就像你在課本旁邊用鉛筆寫的「悄悄話小筆記」。老師（直譯器）在改考卷時會自動忽視這些小筆記，只看你寫的正式答案，因此 <code>#</code> 後面的內容完全不影響程式的運行。</p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">📥 input() 輸入與類型轉換 (Type Casting)：海關安檢與外幣兌換</h4>
+                                <p><b>比喻</b>：<code>input()</code> 就像是一個海關安檢口，所有通過的人都會被套上統一的「文字標籤（字串）」。就算你輸入了數字「100」，在 Python 眼裡也是文字的 <code>"100"</code>（就像拿到外國遊戲代幣一樣，不能直接在本地買便當）。如果想要算術，必須用 <code>int("100")</code> 換成整數（台幣）或用 <code>float("100.5")</code> 換成小數，否則會報錯！</p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Category 2: 算術運算與邏輯運算 -->
+                    <details style="background: var(--option-bg); border: 1px solid var(--option-border); border-radius: 12px; padding: 12px 18px; transition: all 0.2s ease;">
+                        <summary style="font-weight: 700; cursor: pointer; color: var(--primary); outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center; font-size: 1.05rem;">
+                            <span>🔢 2. 算術運算與邏輯運算 (除法、整除、餘數、邏輯與優先權)</span>
+                            <span style="font-size: 0.8rem; font-family: monospace;">▼</span>
+                        </summary>
+                        <div style="margin-top: 15px; border-top: 1px solid var(--option-border); padding-top: 15px; display: flex; flex-direction: column; gap: 15px; line-height: 1.6; color: var(--text-secondary); font-size: 0.9rem;">
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">🥢 / (真除法) vs // (整除) vs % (取餘數)：平分披薩、超市買餅乾與發撲克牌</h4>
+                                <p><b>比喻</b>：
+                                    <ul style="margin-left: 20px;">
+                                        <li>單斜線 <b>`/`</b> 就像是<b>「切披薩」</b>，5 個人分 2 個披薩，每人分到 2.5 片。即使剛好整除（如 4 / 2），結果也會是 <code>2.0</code>（帶有小數的浮點數）。</li>
+                                        <li>雙斜線 <b>`//`</b> 則是去超市<b>「買整包餅乾」</b>。一包 2 元，你口袋有 5 元，你最多只能買 2 包完整的餅乾，收銀員不會拆開賣你半包。所以 5 // 2 = 2。如果金額帶小數（5.0 // 2），就像是用電子錢包嗶，扣款顯示有小數點（2.0），但買到的數量依然是整數的包數。</li>
+                                        <li>百分號 <b>`%`</b> 則是<b>「發撲克牌剩下的餘牌」</b>。有 7 張撲克牌，平分給 3 個人，每人分到 2 張，最後桌上還剩下 1 張沒辦法平分的「餘牌」。所以 7 % 3 的結果就是 1（餘數）。</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">⚡ ** (次方 / 開根號)：細胞分裂與面積求邊長</h4>
+                                <p><b>比喻</b>：
+                                    <ul style="margin-left: 20px;">
+                                        <li>次方的 <b>`x ** 2`</b> 就像是<b>細胞分裂</b>。`5 ** 2` 代表 5 個細胞各自再分裂成 5 個，最後得到 25 個。</li>
+                                        <li>開根號的 <b>`x ** 0.5`</b> 則是<b>「還原面積求正方形邊長」</b>。比如一個面積為 9 的正方形，它的邊長就是 3.0。所以 9 ** 0.5 = 3.0。</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">🚦 and, or, not (邏輯運算子)：出門許可證</h4>
+                                <p><b>比喻</b>：
+                                    <ul style="margin-left: 20px;">
+                                        <li><b>and (而且)</b>：就像是「爸爸和媽媽都答應，才能出門」。只要其中一個說 No（False），你就不能去（False）。</li>
+                                        <li><b>or (或者)</b>：就像是「爸爸或媽媽有一個人答應，就能出門」。只要有一個人說 Yes（True），你就能去（True）。</li>
+                                        <li><b>not (相反)</b>：就像是叛逆期的唱反調。把 Yes 變成 No，把 No 變成 Yes。例如 `not True` 會變成 `False`。</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">👑 運算子優先順序 (Operator Precedence)：排隊買票的 VIP 通道</h4>
+                                <p><b>比喻</b>：就像數學的「先乘除後加減」。Python 算術也有嚴格的排隊規矩：最優先的是括號 <code>()</code>，再來是次方 <code>**</code>，接著是乘除與取餘數 <code>* / // %</code>，最後才是加減 <code>+ -</code>。</p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Category 3: 字串操作與格式化 -->
+                    <details style="background: var(--option-bg); border: 1px solid var(--option-border); border-radius: 12px; padding: 12px 18px; transition: all 0.2s ease;">
+                        <summary style="font-weight: 700; cursor: pointer; color: var(--primary); outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center; font-size: 1.05rem;">
+                            <span>🎫 3. 字串操作與格式化 (字串切片、連續重複、拆裝綵帶與跳脫)</span>
+                            <span style="font-size: 0.8rem; font-family: monospace;">▼</span>
+                        </summary>
+                        <div style="margin-top: 15px; border-top: 1px solid var(--option-border); padding-top: 15px; display: flex; flex-direction: column; gap: 15px; line-height: 1.6; color: var(--text-secondary); font-size: 0.9rem;">
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">🎫 字串切片 slice [start:stop:step]：小火車切票與間隔站</h4>
+                                <p><b>比喻</b>：就像小火車切段。`start` 是起點站，`stop` 是終點的前一站（不包含終點站本身），`step` 是每次跳幾站。例如 `"012345"[1:5]` 是指從第 1 站開始上車，到第 4 站就下車，第 5 站是禁區不能坐！</p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">🖨️ 字串重複相乘 ("abc" * 3)：連續蓋印章</h4>
+                                <p><b>比喻</b>：你手上有一個刻著 `"abc"` 的印章，你連續在紙上蓋 3 次，紙上就會出現一長串連在一起的 `"abcabcabc"`。</p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">✂️ split() vs strip() vs join()：剪綵帶、洗水果與穿糖葫蘆</h4>
+                                <p><b>比喻</b>：
+                                    <ul style="margin-left: 20px;">
+                                        <li><b>split() (剪刀剪綵帶)</b>：如果有一條用逗號隔開的綵帶 "A,B,C"，你在逗號的位置拿剪刀剪下去，就會得到三段獨立綵帶的列表：`["A", "B", "C"]`。</li>
+                                        <li><b>strip() (清洗水果)</b>：洗水果時，你只會洗乾淨水果「頭尾」的泥土（空白或換行符號），而水果「中間」的果肉保持原樣不受波及。</li>
+                                        <li><b>join() (穿糖葫蘆)</b>：用竹籤（例如逗號 `","`）把蘋果、香蕉、草莓（列表 `["apple", "banana", "strawberry"]`）串起來，變成 `"apple,banana,strawberry"`。</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">🖨️ upper() / lower() vs len()：大/小寫鍵與排隊人數點名</h4>
+                                <p><b>比喻</b>：
+                                    <ul style="margin-left: 20px;">
+                                        <li><b>upper() / lower()</b> 就像影印機的「全大寫/全小寫」複印鍵。不論你丟入什麼原稿，它都會把英文通通轉換，但標點符號、空格或數字就像印表機印不出顏色的地方一樣，保持原樣不受影響。</li>
+                                        <li><b>len()</b> 就是拿計數器點一下排隊隊伍，告訴你總共有多少個人（字元數或元素數）。</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">🧙 跳脫字元 (Escape Characters) \n, \t：排版魔法按鍵</h4>
+                                <p><b>比喻</b>：在代碼中，`\n` 就像是鍵盤上的 **Enter 換行鍵**，`\t` 則像是 **Tab 縮排鍵**。它們雖然在代碼裡看起來是兩個字元，但在螢幕上會施展魔法變成不可見的排版動作！</p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Category 4: 容器型別與成員檢查 -->
+                    <details style="background: var(--option-bg); border: 1px solid var(--option-border); border-radius: 12px; padding: 12px 18px; transition: all 0.2s ease;">
+                        <summary style="font-weight: 700; cursor: pointer; color: var(--primary); outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center; font-size: 1.05rem;">
+                            <span>🗄️ 4. 容器型別與成員檢查 (列表、元組、字典、成員運算與操作)</span>
+                            <span style="font-size: 0.8rem; font-family: monospace;">▼</span>
+                        </summary>
+                        <div style="margin-top: 15px; border-top: 1px solid var(--option-border); padding-top: 15px; display: flex; flex-direction: column; gap: 15px; line-height: 1.6; color: var(--text-secondary); font-size: 0.9rem;">
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">🗄️ list (列表) vs tuple (元組) vs dict (字典)：多層抽屜櫃、水泥保險箱與掛牌櫃</h4>
+                                <p><b>比喻</b>：
+                                    <ul style="margin-left: 20px;">
+                                        <li><b>list (列表 `[]`)</b>：抽屜從上到下編號 0, 1, 2...，你可以隨時拉開抽屜修改內容、塞新抽屜、或丟掉舊東西。</li>
+                                        <li><b>tuple (元組 `()`)</b>：一旦把東西放進去並水泥封死，就再也不能修改或新增內容。安全性極高，常用在不可改變的設定資料。</li>
+                                        <li><b>dict (字典 `{}`)</b>：你要拿櫃子裡的玩具不用知道它是第幾個櫃子，只要認明掛牌上的名字（Key），比如「小明的櫃子」，就能精準拿到對應物品（Value）。</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">🔍 in & not in (成員運算子)：檢查口袋有沒有糖果</h4>
+                                <p><b>比喻</b>：`in` 就像問：「我的口袋裡有沒有糖果？」，有的話回答 True，沒有就回答 False；`not in` 則是反過來，問：「我的口袋是不是沒有糖果？」。常用於檢查某個鍵值是否存在於字典或某元素在列表內。</p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">🏃 append() vs insert() vs pop()：排隊尾、插隊與叫最後一個人滾蛋</h4>
+                                <p><b>比喻</b>：
+                                    <ul style="margin-left: 20px;">
+                                        <li><b>append()</b>：就像是排隊時乖乖排到隊伍的最尾端。</li>
+                                        <li><b>insert(i, x)</b>：則是霸道地插隊到第 `i` 個人的位置，讓原本排在後面的人通通往後退一步。</li>
+                                        <li><b>pop()</b>：像是主管喊話：「排在最後面的那個人可以下班了！」，直接把隊伍最後一個元素拿出來並丟掉。</li>
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Category 5: 流程控制與迴圈操作 -->
+                    <details style="background: var(--option-bg); border: 1px solid var(--option-border); border-radius: 12px; padding: 12px 18px; transition: all 0.2s ease;">
+                        <summary style="font-weight: 700; cursor: pointer; color: var(--primary); outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center; font-size: 1.05rem;">
+                            <span>🔄 5. 流程控制與迴圈操作 (if-else、for/while 迴圈、控制語句)</span>
+                            <span style="font-size: 0.8rem; font-family: monospace;">▼</span>
+                        </summary>
+                        <div style="margin-top: 15px; border-top: 1px solid var(--option-border); padding-top: 15px; display: flex; flex-direction: column; gap: 15px; line-height: 1.6; color: var(--text-secondary); font-size: 0.9rem;">
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">🚥 if - elif - else 條件分支：遊樂園的分流入口</h4>
+                                <p><b>比喻</b>：就像遊樂園的驗票口。如果身高超過 140 走 `if` 通道；介於 110 到 140 走 `elif` 通道；其餘的人（低於 110）一律走 `else` 通道。程式只會挑一條符合的通道走，走完就離開，不會重複走！</p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">🔁 for 迴圈與 range()：點名小老師與爬樓梯禁區</h4>
+                                <p><b>比喻</b>：
+                                    <ul style="margin-left: 20px;">
+                                        <li><b>for 迴圈</b>：就像是「點名小老師」拿著一份名單，把名單上的每個人（元素）依序叫出來做一遍同樣的事。</li>
+                                        <li><b>range(start, stop, step)</b>：就像爬樓梯。`range(1, 5)` 代表從第 1 階起步，一次爬 1 階，爬到第 4 階就必須停下來，因為第 5 階（stop）是禁區不可觸碰。所以它只包含 `1, 2, 3, 4`！</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">🔄 while 迴圈：無盡的跑步機</h4>
+                                <p><b>比喻</b>：`while` 就像是家裡的跑步機，只要「電源開關是開的 (True)」，它就會一直轉（重複執行程式碼），直到你把開關關掉 (False) 或拔掉插頭才會停下來。</p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">🛑 break vs continue vs pass：下課鈴、跳過難題與佔位隱形人</h4>
+                                <p><b>比喻</b>：
+                                    <ul style="margin-left: 20px;">
+                                        <li><b>break</b>：就像是<b>下課鈴聲響起</b>。你一聽到，立刻停下手邊的所有工作，衝出教室（直接中斷並逃離整個迴圈）。</li>
+                                        <li><b>continue</b>：就像是寫考卷時<b>遇到不會寫的難題</b>。你決定「這題先空著，直接寫下一題」（跳過本次迴圈後半段的指令，直接進入下一次迴圈）。</li>
+                                        <li><b>pass</b>：就像是<b>佔位子用的隱形人</b>。Python 語法規定某個地方一定要有縮排代碼（例如 if 條件下面），但你現在還沒想好要寫什麼，就放一個 `pass` 告訴系統「這裡先空著，我只是路過，不要報錯」。</li>
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Category 6: 函式定義與作用域 -->
+                    <details style="background: var(--option-bg); border: 1px solid var(--option-border); border-radius: 12px; padding: 12px 18px; transition: all 0.2s ease;">
+                        <summary style="font-weight: 700; cursor: pointer; color: var(--primary); outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center; font-size: 1.05rem;">
+                            <span>🛠️ 6. 函式定義與作用域 (def 函式、全域與區域、math 數學模組)</span>
+                            <span style="font-size: 0.8rem; font-family: monospace;">▼</span>
+                        </summary>
+                        <div style="margin-top: 15px; border-top: 1px solid var(--option-border); padding-top: 15px; display: flex; flex-direction: column; gap: 15px; line-height: 1.6; color: var(--text-secondary); font-size: 0.9rem;">
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">🔌 def 函式定義與參數：廚房果汁機</h4>
+                                <p><b>比喻</b>：定義函式就像是「買一台果汁機並貼上說明書」。參數是放進去的「水果」，函式內容是「攪拌過程」，而 `return` 就是最後倒出來的「果汁」。定義好之後，必須按下開關（呼叫它）它才會開始運作。</p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">🌍 global (全域) vs local (區域) 變數：公共電話與私人手機</h4>
+                                <p><b>比喻</b>：
+                                    <ul style="margin-left: 20px;">
+                                        <li><b>global (全域變數)</b>：like 公園的公共電話，任何人（每個函式）都可以走過去使用或修改它。</li>
+                                        <li><b>local (區域變數)</b>：則像你的私人手機，只有在你的房間裡（特定的函式內部）才能用，外面的路人根本碰不到。</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">📐 math 常用函式 (floor, ceil, sqrt)：地心引力、天花板與求邊長</h4>
+                                <p><b>比喻</b>：
+                                    <ul style="margin-left: 20px;">
+                                        <li><b>math.floor(x) (地板)</b>：就像重力把人拉向地面，無論小數點後是多少（如 3.9），通通無條件捨去成整數 <code>3</code>。</li>
+                                        <li><b>math.ceil(x) (天花板)</b>：就像熱氣球升向天花板，只要有小數點（如 3.1），通通無條件進位成整數 <code>4</code>。</li>
+                                        <li><b>math.sqrt(x) (平方根)</b>：就是「求正方形面積的邊長」。比如面積為 16 的正方形，邊長就是 <code>4.0</code>。</li>
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Category 7: 檔案讀寫與例外處理 -->
+                    <details style="background: var(--option-bg); border: 1px solid var(--option-border); border-radius: 12px; padding: 12px 18px; transition: all 0.2s ease;">
+                        <summary style="font-weight: 700; cursor: pointer; color: var(--primary); outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center; font-size: 1.05rem;">
+                            <span>💾 7. 檔案讀寫與例外處理 (檔案模式、讀寫方法、try-except、常見錯誤)</span>
+                            <span style="font-size: 0.8rem; font-family: monospace;">▼</span>
+                        </summary>
+                        <div style="margin-top: 15px; border-top: 1px solid var(--option-border); padding-top: 15px; display: flex; flex-direction: column; gap: 15px; line-height: 1.6; color: var(--text-secondary); font-size: 0.9rem;">
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">📁 open() 的讀寫模式 r/w/a/b：圖書室看書、重新粉刷與接龍</h4>
+                                <p><b>比喻</b>：
+                                    <ul style="margin-left: 20px;">
+                                        <li><b>'r' (唯讀)</b>：就像在圖書室看書，只能看不能修改。檔案如果不存在會拋出 `FileNotFoundError`。</li>
+                                        <li><b>'w' (覆寫)</b>：就像重新粉刷牆壁。一打開檔案會把舊內容全部抹除乾淨，寫入全新的內容。如果檔案不存在會幫你自動建立一個。</li>
+                                        <li><b>'a' (追加)</b>：就像寫接龍故事，新內容只會黏在原本檔案的最尾端，絕不破壞原本的資料。</li>
+                                        <li><b>'b' (二進位)</b>：就像解讀加密電報本，處理圖片、音樂、PDF 等非純文字的檔案時，要加 'b' (如 'rb', 'wb')。</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">📄 read() vs readline() vs readlines()：鯨吞、蠶食與整理成冊</h4>
+                                <p><b>比喻</b>：
+                                    <ul style="margin-left: 20px;">
+                                        <li><b>read()</b>：就像一口氣把整本書吃下去，把整份檔案包裝成單一個超長字串。</li>
+                                        <li><b>readline()</b>：就像是一行行慢慢看，每次呼叫只讀取檔案裡的一行。</li>
+                                        <li><b>readlines()</b>：就像把書拆成一頁頁並裝訂成講義，把檔案裡的每一行切開，收集成一個字串列表。</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">🛡️ try - except - finally：防摔護具與必定執行的收尾</h4>
+                                <p><b>比喻</b>：
+                                    <ul style="margin-left: 20px;">
+                                        <li><b>try</b>：就像你在嘗試走一條可能有香蕉皮滑倒的路。</li>
+                                        <li><b>except</b>：就像是準備防摔護具，一旦滑倒（程式出錯）就立刻保護你，不讓程式崩潰。</li>
+                                        <li><b>finally</b>：就像是「不管你有沒有滑倒，最後都要回家洗手」，是用來做最後必定執行的收尾動作（例如關閉已打開的檔案資源）。</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 5px;">🚨 考題常見的錯誤類型 (Exceptions)</h4>
+                                <p><b>比喻</b>：
+                                    <ul style="margin-left: 20px;">
+                                        <li><b>IndexError (找錯座位)</b>：一排只有 3 個座位 (0, 1, 2)，你卻硬要第 4 個人 (3) 坐下，因為找不到座位而引發錯誤。</li>
+                                        <li><b>TypeError (果汁機放鐵釘)</b>：試圖把「文字 (蘋果)」和「數字 5 (鐵釘)」相加。型態不同無法融合，機器報警罷工。</li>
+                                        <li><b>FileNotFoundError (圖書館借無書)</b>：去圖書館借一本根本沒上架的書，直譯器回報「找不到檔案」。</li>
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 2: Exam (練習與測驗主面板) -->
+        <section class="page-panel" id="page-exam">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;">
+                <h1 class="page-title" style="margin-bottom: 0;" id="exam-page-title">📝 Python 國際認證練習</h1>
+                <div class="switch-container">
+                    <span style="font-size: 0.88rem; font-weight: 700; color: var(--text-secondary);">顯示題目解析</span>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-explanation-global" checked onchange="toggleExplanationGlobal(this.checked)">
+                        <span class="slider-switch"></span>
+                    </label>
+                </div>
+            </div>
+            <p class="page-desc" id="exam-page-desc">提供證照模擬考題之自我檢測功能。包含單題互動練習、限時 20 分鐘的隨機測驗以及錯題報告分析。</p>
+
+            <!-- Exam Navigation Tab -->
+            <div class="exam-tabs" aria-label="練習區分頁">
+                <button class="exam-tab-btn active" onclick="switchExamTab('practice')" id="exam-tab-practice">
+                    🎯 互動練習模式
+                </button>
+                <button class="exam-tab-btn" onclick="switchExamTab('exam')" id="exam-tab-exam">
+                    ⏱️ 模擬測驗模式
+                </button>
+                <button class="exam-tab-btn" onclick="switchExamTab('study')" id="exam-tab-study">
+                    📚 題庫瀏覽模式
+                </button>
+            </div>
+
+            <!-- Subpanel 1: Practice Mode -->
+            <div class="exam-panel active" id="exam-panel-practice">
+                <div class="progress-section">
+                    <div class="progress-info">
+                        <span id="practice-progress-text">練習進度：1 / 100</span>
+                        <span id="practice-accuracy-text">正確率：0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="practice-progress-bar"></div>
+                    </div>
+                </div>
+
+                <div id="practice-container">
+                    <!-- Question card injected here -->
+                </div>
+
+                <div class="alert-box" id="practice-explanation">
+                    <!-- Feedback injected here -->
+                </div>
+
+                <div class="control-panel">
+                    <button class="action-btn secondary-btn" id="practice-prev-btn" onclick="practicePrevQuestion()">
+                        ← 上一題
+                    </button>
+                    <button class="action-btn secondary-btn" onclick="resetPractice()">
+                        🔄 重新練習
+                    </button>
+                    <button class="action-btn primary-btn" id="practice-next-btn" onclick="practiceNextQuestion()">
+                        下一題 →
+                    </button>
+                </div>
+
+                <!-- Wrong Questions Table Section -->
+                <div class="card" id="practice-wrong-section" style="margin-top: 30px; display: none;">
+                    <h3 style="margin-bottom: 15px; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                        <span>❌</span> <span>錯誤題目紀錄表 (錯題本)</span>
+                    </h3>
+                    <div style="overflow-x: auto;">
+                        <table class="demo-table" style="width: 100%; border-collapse: collapse; text-align: left;">
+                            <thead>
+                                <tr>
+                                    <th style="width: 80px; text-align: center;">題號</th>
+                                    <th>題目內容</th>
+                                    <th style="width: 90px; text-align: center;">您的答案</th>
+                                    <th style="width: 90px; text-align: center;">正確答案</th>
+                                    <th style="width: 100px; text-align: center;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="practice-wrong-table-body">
+                                <!-- Injected rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                <!-- Pinned Questions Table Section -->
+                <div class="card" id="practice-pinned-section" style="margin-top: 30px; display: none;">
+                    <h3 style="margin-bottom: 15px; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                        <span>📌</span> <span>釘選題目紀錄表 (釘選本)</span>
+                    </h3>
+                    <div style="overflow-x: auto;">
+                        <table class="demo-table" style="width: 100%; border-collapse: collapse; text-align: left;">
+                            <thead>
+                                <tr>
+                                    <th style="width: 80px; text-align: center;">題號</th>
+                                    <th>題目內容</th>
+                                    <th style="width: 120px; text-align: center;">作答狀態</th>
+                                    <th style="width: 100px; text-align: center;">正確答案</th>
+                                    <th style="width: 120px; text-align: center;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="practice-pinned-table-body">
+                                <!-- Injected rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+
+            <!-- Subpanel 2: Exam Mode -->
+            <div class="exam-panel" id="exam-panel-exam">
+                <!-- Exam Intro View -->
+                <div id="exam-intro" style="text-align: center; padding: 40px 20px;">
+                    <span style="font-size: 3.5rem; display: block; margin-bottom: 20px;">📝</span>
+                    <h2 style="font-size: 1.35rem; margin-bottom: 12px;" id="exam-intro-title">Python 國際認證學科模擬檢定</h2>
+                    <p id="exam-intro-desc"
+                        style="color: var(--text-secondary); max-width: 500px; margin: 0 auto 25px; line-height: 1.6; font-size: 0.9rem;">
+                        系統將自完整題庫中，隨機抽樣產生 <b>25 題單選題</b>。作答時間限制為 <b>20 分鐘</b>。及格門檻為 <b>60 分</b>。交卷後將獲得即時評分與詳盡錯題分析報告。
+                    </p>
+                    <button class="action-btn primary-btn"
+                        style="margin: 0 auto; padding: 12px 30px; border-radius: 12px;" onclick="startExam()">
+                        ⚡ 開始隨機測驗
+                    </button>
+                </div>
+
+                <!-- Exam Testing View -->
+                <div id="exam-testing" style="display: none;">
+                    <div class="exam-header">
+                        <h2 style="font-size: 1.1rem;">模擬檢定中</h2>
+                        <div class="timer-box" id="exam-timer">
+                            ⏱️ <span id="timer-val">20:00</span>
+                        </div>
+                    </div>
+
+                    <div class="exam-grid">
+                        <div class="exam-main-panel">
+                            <div id="exam-question-container">
+                                <!-- Injected question -->
+                            </div>
+
+                            <div class="control-panel">
+                                <button class="action-btn secondary-btn" onclick="examPrevQuestion()">
+                                    上一題
+                                </button>
+                                <button class="action-btn secondary-btn" id="exam-mark-btn"
+                                    onclick="toggleMarkQuestion()">
+                                    📌 標記此題
+                                </button>
+                                <button class="action-btn primary-btn" onclick="examNextQuestion()">
+                                    下一題
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="exam-sidebar">
+                            <h3 style="font-size: 0.9rem; font-weight: 700; color: var(--text-secondary);">題號導航</h3>
+                            <div class="nav-grid" id="exam-nav-grid">
+                                <!-- Nav buttons injected here -->
+                            </div>
+                            <div style="border-top: 1px solid var(--option-border); padding-top: 15px; display: flex; flex-direction: column; gap: 10px;">
+                                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-secondary); font-weight: 600;">
+                                    <span>已答: <b id="exam-answered-count">0</b>/25</span>
+                                    <span>未答: <b id="exam-unanswered-count">25</b>/25</span>
+                                </div>
+                                <button class="action-btn primary-btn"
+                                    style="width: 100%; justify-content: center; padding: 10px;"
+                                    onclick="submitExamPrompt()">
+                                    📤 確認交卷
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exam Results Dashboard -->
+                <div id="exam-result" style="display: none;">
+                    <div class="result-dashboard">
+                        <div class="score-circle">
+                            <span class="score-num" id="result-score-val">0</span>
+                            <span class="score-label">分數</span>
+                        </div>
+                        <h2 class="result-status pass" id="result-status-text">恭喜通過測驗！🎉</h2>
+                        <p id="result-feedback-text" style="color: var(--text-secondary); margin-bottom: 20px;">答對 24 題，答錯 1 題。表現非常優異！</p>
+
+                        <div class="result-stats">
+                            <div class="stat-card">
+                                <div class="stat-val correct" id="stat-correct-count">0</div>
+                                <div class="stat-label">答對題數</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-val incorrect" id="stat-incorrect-count">0</div>
+                                <div class="stat-label">答錯題數</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-val" id="stat-time-used">00:00</div>
+                                <div class="stat-label">花費時間</div>
+                            </div>
+                        </div>
+
+                        <div style="text-align: left; margin: 30px 0;">
+                            <h3 style="font-size: 1.05rem; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+                                <span>🔍</span> 錯題與標記解析
+                            </h3>
+                            <div id="wrong-answers-review" class="study-grid">
+                                <!-- Injected wrong answers review cards -->
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 12px; justify-content: center;">
+                            <button class="action-btn primary-btn" onclick="restartExamMode()">
+                                🔁 再測一次
+                            </button>
+                            <button class="action-btn secondary-btn" onclick="switchExamTab('study')">
+                                📚 題庫瀏覽
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subpanel 3: Study Mode -->
+            <div class="exam-panel" id="exam-panel-study">
+                <div class="filter-bar">
+                    <input type="text" class="search-input" id="study-search" placeholder="🔍 搜尋題目關鍵字..." oninput="filterStudyQuestions()">
+                    <div class="filter-tags">
+                        <button class="filter-tag active" onclick="filterStudyCategory('all', this)" id="study-filter-all">全部 (100)</button>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                    <span style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 600;" id="study-results-count">顯示 100 題中的 100 題</span>
+                    <button class="action-btn secondary-btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="toggleAllStudyAnswers()">
+                        👁️ 顯示/隱藏所有答案
+                    </button>
+                </div>
+
+                <div class="study-grid" id="study-questions-list">
+                    <!-- Full study list injected here -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal for Score History -->
+    <div class="modal" id="historyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">📊 歷次模擬測驗歷史紀錄</h3>
+                <button class="close-btn" onclick="toggleHistoryModal(false)">&times;</button>
+            </div>
+            <div class="history-list" id="historyListContainer">
+                <!-- Injected history items -->
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button class="action-btn secondary-btn" onclick="clearHistory()">🗑️ 清除紀錄</button>
+                <button class="action-btn primary-btn" onclick="toggleHistoryModal(false)">關閉</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Local DB -->
+    <script src="questions.js"></script>
+
+    <!-- App Logic -->
+    <script>
+        
+        // --- Beginner Friendly Analogy Generator ---
+        function getAnalogy(q) {
+            const text = (q.question + " " + (q.explanation || "") + " " + Object.values(q.options).join(" ")).toLowerCase();
+            
+            // --- 1. Python & JS General Core Concepts ---
+            if (text.includes("upper()") || text.includes("lower()") || text.includes("touppercase") || text.includes("tolowercase")) {
+                return '💡 <b>生活譬喻（影印機大/小寫鍵）</b>：就像影印機的「全大寫/全小寫」複印鍵。不論你丟入什麼原稿，它都會把英文通通轉換，但標點符號、空格或數字就像印表機印不出顏色的地方一樣，保持原樣不受影響。';
+            }
+            if (text.includes("filenotfounderror") || (text.includes("檔案") && text.includes("不存在") && text.includes("例外"))) {
+                return '💡 <b>生活譬喻（圖書館借書）</b>：就像你去圖書館找一本根本沒上架的書，管理員會直接對你大喊「找不到這本書 (FileNotFound)」。在程式裡，試圖讀取不存在的檔案就會引發這個錯誤。';
+            }
+            if (text.includes("indexerror") || (text.includes("索引") && text.includes("超出") && text.includes("例外"))) {
+                return '💡 <b>生活譬喻（排椅入座）</b>：就像一排只有 3 個座位的椅子（編號為 0, 1, 2），你卻硬叫第 4 個人（編號 3）坐上去。因為根本沒有這個座位，他就跌倒出錯了 (IndexError)。';
+            }
+            if (text.includes("typeerror") || (text.includes("型別") && text.includes("錯誤") && text.includes("例外"))) {
+                return '💡 <b>生活譬喻（果汁機砸鐵塊）</b>：就像你試圖把「蘋果（字串）」和「鐵釘（數字）」一起放進果汁機裡攪拌。因為兩者根本不是同類東西，機器（直譯器）不知道該怎麼把它們融合，所以直接罷工報錯 (TypeError)。';
+            }
+            if (text.includes("overflowerror") || (text.includes("超出") && text.includes("範圍") && text.includes("溢位"))) {
+                return '💡 <b>生活譬喻（浴缸水滿出來）</b>：就像你拿一個小馬克杯去裝整個浴缸的水，水一定會溢出來 (Overflow)。當程式算出來的數字大到超出記憶體能裝的範圍時，就會引發這個錯誤。';
+            }
+            if (text.includes("//") || text.includes("整除")) {
+                return '💡 <b>生活譬喻（超市買餅乾）</b>：就像去超市買餅乾。一包餅乾 2 元，你口袋只有 5 元，你最多只能買 2 包完整的餅乾，店員不可能拆開賣你 2.5 包。所以 5 // 2 的結果是 2。如果是浮點數（如 5.0 // 2），就像是用電子支付，金額顯示有小數點（2.0），但買到的數量依然是整數包。';
+            }
+            if (text.includes("/") && !text.includes("//") && !text.includes("/*") && !text.includes("http")) {
+                return '💡 <b>生活譬喻（平分披薩）</b>：就像平分披薩。5 個人分 2 個披薩，每個人就是分到 2.5 片。即使剛好整除（如 4 個人分 2 個），Python 也會很精緻地寫成「2.0」片，確保結果一定帶有精準的小數點（浮點數）。';
+            }
+            if (text.includes("%") || text.includes("餘數")) {
+                return '💡 <b>生活譬喻（發撲克牌）</b>：就像發撲克牌。有 7 張牌平均分給 3 個人，每個人分到 2 張，最後桌上還剩下 1 張沒辦法平分的「餘牌」。所以 7 % 3 的結果就是 1（餘數）。';
+            }
+            if (text.includes("**") || text.includes("次方") || text.includes("平方根")) {
+                if (text.includes("0.5") || text.includes("1/2") || text.includes("1/3")) {
+                    return '💡 <b>生活譬喻（還原面積求邊長）</b>：`x ** 0.5` 就像是「知道面積求正方形邊長」。比如一個面積為 9 的正方形，它的邊長就是 3。所以 9 ** 0.5 = 3.0。';
+                }
+                return '💡 <b>生活譬喻（細胞分裂）</b>：`x ** n` 就像是細胞分裂。`5 ** 2` 代表 5 個細胞各自再分裂成 5 個，最後總共得到 25 個。';
+            }
+            if (text.includes("*") && (text.includes("字串") || text.includes("abc") || text.includes("hello")) && !text.includes("**")) {
+                return '💡 <b>生活譬喻（印章連續蓋）</b>：就像連續蓋印章。你手上有一個刻著 "abc" 的印章，你連續在紙上蓋 5 次，紙上就會出現一長串連在一起的 "abcabcabcabcabc"。';
+            }
+            if (text.includes("try") || text.includes("except") || text.includes("finally") || text.includes("catch")) {
+                return '💡 <b>生活譬喻（走香蕉皮路）</b>：`try` 區塊就像是你在嘗試走一條可能有香蕉皮滑倒的路；`except` 或 `catch` 裝備就像是防摔護具，一旦滑倒（出異常）就立刻保護你，不讓整個人（程式）崩潰；`finally` 則是「不管你有沒有滑倒，最後都要回家洗手」，是用來做最後必定執行的收尾動作（例如關閉檔案）。';
+            }
+            if (text.includes("#") || text.includes("註解") || text.includes("//") || text.includes("/*")) {
+                if (text.includes("註解") || text.includes("comment")) {
+                    return '💡 <b>生活譬喻（課本小筆記）</b>：就像你在課本旁邊自己用鉛筆寫的悄悄話小筆記。老師（直譯器）在改考卷時會自動忽視這些小筆記，只看你寫的正式答案，因此註解完全不影響程式的運行。';
+                }
+            }
+            if (text.includes("writelines") || text.includes("write")) {
+                return '💡 <b>生活譬喻（倒行李進櫃子）</b>：`writelines` 就像是一口氣把三箱行李（字串列表）倒進同一個置物櫃裡。因為它不會主動幫你把行李隔開，所有行李都會緊緊挨在一起（變成一長行字串），如果需要分行，必須自己手動塞入「隔板（\\n 換行符）」。';
+            }
+            if (text.includes("split()")) {
+                return '💡 <b>生活譬喻（剪綵帶）</b>：就像是用剪刀剪綵帶。如果有一條用逗號標記的綵帶 "A,B,C"，你拿剪刀在每個逗號的位置剪下去，最後就會得到三段獨立的綵帶：["A", "B", "C"]。';
+            }
+            if (text.includes("strip()")) {
+                return '💡 <b>生活譬喻（洗蘋果）</b>：就像洗蘋果一樣，把蘋果「頭尾」的泥土（空白或指定字元）洗乾淨，但蘋果「中間」的部分保持原樣不受影響。';
+            }
+            if (text.includes("range(") || text.includes("range")) {
+                return '💡 <b>生活譬喻（爬樓梯與禁區）</b>：就像爬樓梯。`range(start, stop, step)` 中，`start` 是起點，`stop` 是終點的前一階（不包含終點本身），`step` 是你一次跨幾階。例如 range(1, 5) 就是從第 1 階開始爬，爬到第 4 階就停，因為第 5 階是禁區不能踩。';
+            }
+            if (text.includes("len(") || text.includes("長度") || text.includes(".length")) {
+                return '💡 <b>生活譬喻（排隊點名）</b>：就像排隊人數點名。一排隊伍排了幾個字元或元素，`len()` 或 `.length` 就是拿計數器點一下，告訴你總共有多少個人。';
+            }
+            if (text.includes("append") || text.includes("insert")) {
+                return '💡 <b>生活譬喻（排隊與插隊）</b>：`append()` 就像是排隊時乖乖排到隊伍的最尾端；`insert(i, x)` 則是霸道地插隊到第 `i` 個人的位置，讓原本排在後面的人通通往後退一步。';
+            }
+            if (text.includes("==") || text.includes("指派") || text.includes("運算子")) {
+                if (text.includes("==")) {
+                    return '💡 <b>生活譬喻（收納箱與天平）</b>：單個等號 `=` 就像是「收納箱」，把右邊的東西放進左邊的箱子裡；雙個等號 `==` 則是「天平/檢測儀」，用來問系統：「左邊跟右邊的東西是一模一樣的嗎？」，結果只會回答「對 (True)」或「錯 (False)」。';
+                }
+            }
+            if (text.includes("random")) {
+                if (text.includes("randint")) {
+                    return '💡 <b>生活譬喻（擲骰子）</b>：`random.randint(a, b)` 就像擲一個印有數字 a 到 b 的骰子，得到的點數一定是 a 到 b 之間的整數，而且包含 a 和 b 本身。';
+                }
+                return '💡 <b>生活譬喻（轉幸運輪盤）</b>：`random.random()` 就像在 0 到 100% 之間轉幸運小數輪盤，指針會落在 0% 到 100% 之間（不包含剛好 100%），也就是 0.0 到 0.999... 的任意隨機小數。';
+            }
+            if (text.includes("tuple") || text.includes("元組")) {
+                return '💡 <b>生活譬喻（水泥保險箱）</b>：元組 (tuple) 就像是被水泥封死、無法修改的保險箱，一旦把東西放進去並關上，就再也不能修改或新增裡面的內容，安全性極高。';
+            }
+            if (text.includes("dict") || text.includes("字典") || text.includes("鍵值")) {
+                return '💡 <b>生活譬喻（置物櫃掛牌）</b>：字典 (dict) 就像置物櫃上的姓名掛牌。你要拿玩具（Value）不用知道它是第幾個櫃子，只要認明掛牌上的名字（Key），比如「小明的櫃子」，就能精準拿到裡面的東西。';
+            }
+            if (text.includes("list") || text.includes("串列") || text.includes("列表")) {
+                return '💡 <b>生活譬喻（多層抽屜櫃）</b>：串列 (list) 就像是一個多層抽屜櫃，抽屜從上到下編號為 0, 1, 2...，你可以隨時打開抽屜修改裡面的物品、新增抽屜或拿走東西。';
+            }
+            if (text.includes("def ") || text.includes("function") || text.includes("定義") || text.includes("函式")) {
+                return '💡 <b>生活譬喻（廚房果汁機）</b>：定義函式就像是「買一台果汁機並貼上說明書」。參數是放進去的「水果」，函式內容是「攪拌過程」，而 `return` 就是最後倒出來的「果汁」。定義好之後，必須按下開關（呼叫它）它才會開始運作。';
+            }
+            if (text.includes("input(") || text.includes("input")) {
+                return '💡 <b>生活譬喻（客服對話框）</b>：`input()` 就像網頁客服跳出的輸入框，會靜靜等待使用者在鍵盤敲入內容。需要特別注意的是，無論使用者輸入的是數字還是字母，客服收到的統一都是「文字格式（字串）」。';
+            }
+            if (text.includes("global") || text.includes("全域") || text.includes("區域")) {
+                return '💡 <b>生活譬喻（公共電話與私人手機）</b>：全域變數 (global) 就像是公園的公共電話，任何人（每個函式）都可以走過去使用它；區域變數 (local) 則像你的私人手機，只有在你的房間裡（特定的函式內部）才能用，外面的人根本碰不到。';
+            }
+
+            // --- 2. HTML / CSS / JS Core Concepts ---
+            if (text.includes("box-model") || text.includes("margin") || text.includes("padding") || text.includes("border")) {
+                return '💡 <b>生活譬喻（快遞包裹）</b>：`content` 是箱子裡要寄的玻璃杯，`padding` 是防撞氣泡紙（保護玻璃杯），`border` 是紙箱本身的厚度，`margin` 則是箱子與其他箱子之間的安全距離，防止撞在一起。';
+            }
+            if (text.includes("flex") || text.includes("grid")) {
+                if (text.includes("flex")) {
+                    return '💡 <b>生活譬喻（排隊買票）</b>：Flexbox 就像大家自覺排成一列（橫向或縱向），可以根據走道的寬度自動變寬或縮小，保持整齊。';
+                }
+                return '💡 <b>生活譬喻（九宮格置物櫃）</b>：Grid 就像是棋盤或超商寄物櫃，有行有列，你可以直接指定把物品精準放在「第 2 行、第 3 列」的格子裡。';
+            }
+            if (text.includes("dom") || text.includes("document.") || text.includes("element")) {
+                if (text.includes("dom") || text.includes("document")) {
+                    return '💡 <b>生活譬喻（百貨大樓導覽圖）</b>：HTML 是整棟大樓，DOM 樹就是大門口的導覽圖，JS 就像是導覽員，可以透過導覽圖直接走到某個櫃位，把上面的招牌換掉（修改元素內容）或塗上新顏色。';
+                }
+            }
+            if (text.includes("cookie") || text.includes("session") || text.includes("localstorage")) {
+                if (text.includes("localstorage")) {
+                    return '💡 <b>生活譬喻（瀏覽器便利貼）</b>：LocalStorage 就像瀏覽器幫你貼在電腦上的便利貼，只要你不主動撕掉它（清除快取），即使電腦關機重開，上面的紀錄依然會一直留著。';
+                }
+                if (text.includes("cookie")) {
+                    return '💡 <b>生活譬喻（會員實體卡）</b>：Cookie 就像是放在客人錢包裡的會員實體卡，每次客人來店裡（發送請求），都會自動把卡片遞給店員看，讓店員認出你是誰。';
+                }
+                return '💡 <b>生活譬喻（店內手寫帳本）</b>：Session 就像是店裡櫃檯的手寫帳本。客人不用帶卡片，只要報出名字或會員代號（Session ID），店員就能直接在店裡的帳本查到你的消費紀錄。';
+            }
+            if (text.includes("class") || text.includes("id")) {
+                if (text.includes("selector") || text.includes("選擇器") || text.includes("css")) {
+                    return '💡 <b>生活譬喻（身份證與學生證）</b>：`id` 就像身份證字號，全台灣只能有一個人擁有（一個頁面中 ID 必須唯一）；`class` 則像「學生證/制服」，可以同時發給很多人（多個元素可以套用同一個 Class 樣式）。';
+                }
+            }
+            
+            return '💡 <b>新手思考小撇步</b>：程式執行是極度誠實的「自動化工廠」。直譯器會一字不漏地照著指令順序工作，只要型態不對或拼字錯誤就會立刻報警罷工。閱讀程式碼時，可以試著跟著程式的腳步一步步往下走喔！';
+        }
+        // --- Global States ---
+        let activeQuestionBank = [];
+        let currentBankName = ''; 
+        let practiceIndex = 0;
+        let practiceAnswers = [];
+        let globalShowExplanation = true;
+        let studySearchQuery = '';
+        let allStudyReveal = false;
+
+        // Exam Mode States
+        let examQuestions = [];
+        let examAnswers = [];
+        let examMarks = [];
+        let examIndex = 0;
+        let examTimerInterval = null;
+        let examTimeRemaining = 1200; 
+        let examStartTime = 0;
+
+        // --- Navigation System ---
+        function switchPage(pageId) {
+            // Update Active Menu
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            const menuEl = document.getElementById(`menu-${pageId}`);
+            if (menuEl) menuEl.classList.add('active');
+
+            // Update Active Panel
+            document.querySelectorAll('.page-panel').forEach(panel => panel.classList.remove('active'));
+            
+            if (pageId === 'roadmap') {
+                document.getElementById('page-roadmap').classList.add('active');
+            } else {
+                document.getElementById('page-exam').classList.add('active');
+                loadSetExam(pageId);
+            }
+
+            // Close Mobile Sidebar
+            document.getElementById('sidebar').classList.remove('mobile-open');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Hamburger menu mobile trigger
+        document.getElementById('hamburgerBtn').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('mobile-open');
+        });
+
+        // Close sidebar if clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            const sidebar = document.getElementById('sidebar');
+            const hamburger = document.getElementById('hamburgerBtn');
+            if (window.innerWidth <= 768) {
+                if (!sidebar.contains(e.target) && e.target !== hamburger && sidebar.classList.contains('mobile-open')) {
+                    sidebar.classList.remove('mobile-open');
+                }
+            }
+        });
+
+        // Load specific set
+        function loadSetExam(setId) {
+            currentBankName = `python_${setId}`;
+            const setNum = parseInt(setId.replace('set', ''));
+            
+            activeQuestionBank = questionBank.filter(q => q.set === setNum);
+            
+            const setNames = {1: '卷一', 2: '卷二', 3: '卷三', 4: '卷四'};
+            const setName = setNames[setNum] || `卷 ${setNum}`;
+            document.getElementById('exam-page-title').textContent = `📝 Python 國際認證 ${setName} 練習`;
+            
+            const total = activeQuestionBank.length;
+            document.getElementById('exam-intro-title').textContent = `Python 國際認證 ${setName} 模擬檢定`;
+            document.getElementById('exam-intro-desc').innerHTML = `系統將自 ${total} 題完整題庫中，隨機抽樣產生 <b>25 題單選題</b>。作答時間限制為 <b>20 分鐘</b>。及格門檻為 <b>60 分</b>。交卷後將獲得即時評分與詳盡錯題分析報告。`;
+
+            // Reset search parameters for Study tab
+            studySearchQuery = '';
+            allStudyReveal = false;
+            document.getElementById('study-search').value = '';
+            document.getElementById('study-filter-all').textContent = `全部 (${total})`;
+
+            // Initialize practice queue
+            initActiveQuestionBank();
+            
+            // Switch tab
+            switchExamTab('practice');
+        }
+
+                function initActiveQuestionBank() {
+            const answersMap = JSON.parse(localStorage.getItem('answers_' + currentBankName) || '{}');
+            const historyKey = 'wrong_history_' + currentBankName;
+            let wrongHistory = JSON.parse(localStorage.getItem(historyKey) || '[]');
+            
+            // First, populate wrongHistory with current wrong answers to ensure history is updated
+            let historyUpdated = false;
+            activeQuestionBank.forEach(q => {
+                const choice = answersMap[q.id];
+                if (choice !== undefined && choice !== q.answer) {
+                    if (!wrongHistory.includes(q.id)) {
+                        wrongHistory.push(q.id);
+                        historyUpdated = true;
+                    }
+                }
+            });
+            if (historyUpdated) {
+                localStorage.setItem(historyKey, JSON.stringify(wrongHistory));
+            }
+            
+            const currentWrongQ = [];
+            const previouslyWrongQ = [];
+            const unansweredQ = [];
+            const alwaysCorrectQ = [];
+            
+            activeQuestionBank.forEach(q => {
+                const choice = answersMap[q.id];
+                const wasWrongInHistory = wrongHistory.includes(q.id);
+                
+                if (choice === undefined) {
+                    unansweredQ.push(q);
+                } else if (choice === q.answer) {
+                    if (wasWrongInHistory) {
+                        previouslyWrongQ.push(q);
+                    } else {
+                        alwaysCorrectQ.push(q);
+                    }
+                } else {
+                    currentWrongQ.push(q);
+                }
+            });
+            
+            activeQuestionBank = [...currentWrongQ, ...previouslyWrongQ, ...unansweredQ, ...alwaysCorrectQ];
+            
+            practiceAnswers = activeQuestionBank.map(q => {
+                const choice = answersMap[q.id];
+                return choice !== undefined ? choice : null;
+            });
+            
+            // Pick first unanswered question or start from beginning
+            const firstUnanswered = practiceAnswers.indexOf(null);
+            practiceIndex = firstUnanswered !== -1 ? firstUnanswered : 0;
+        }
+
+        // --- Theme Switcher ---
+        let currentTheme = localStorage.getItem('theme') || 'light';
+        function initTheme() {
+            document.body.setAttribute('data-theme', currentTheme);
+            const btn = document.getElementById('sidebarThemeBtn');
+            btn.textContent = currentTheme === 'light' ? '🌙' : '☀️';
+        }
+        document.getElementById('sidebarThemeBtn').addEventListener('click', () => {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            localStorage.setItem('theme', currentTheme);
+            initTheme();
+        });
+
+        // --- Explanation Global Toggle ---
+        function toggleExplanationGlobal(checked) {
+            globalShowExplanation = checked;
+            
+            if (document.getElementById('exam-tab-practice').classList.contains('active')) {
+                renderPracticeQuestion();
+            } else if (document.getElementById('exam-tab-study').classList.contains('active')) {
+                document.querySelectorAll('.study-card').forEach(card => {
+                    const revealAns = card.querySelector('.answer-reveal');
+                    const isAnsVisible = revealAns && revealAns.classList.contains('visible');
+                    card.querySelectorAll('.study-explanation, .option-explanation, .analogy-box').forEach(exp => {
+                        exp.style.display = (checked && isAnsVisible) ? 'block' : 'none';
+                    });
+                });
+            }
+
+            document.querySelectorAll('.exam-review-exp').forEach(exp => {
+                exp.style.display = checked ? 'block' : 'none';
+            });
+        }
+
+        // --- Exam Sub-Panel Navigation ---
+        function switchExamTab(tabName) {
+            document.querySelectorAll('.exam-tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.exam-panel').forEach(panel => panel.classList.remove('active'));
+
+            document.getElementById(`exam-tab-${tabName}`).classList.add('active');
+            document.getElementById(`exam-panel-${tabName}`).classList.add('active');
+
+            if (tabName === 'practice') {
+                renderPracticeQuestion();
+            } else if (tabName === 'study') {
+                renderStudyQuestions();
+            }
+        }
+
+        // --- 1. Practice Mode Logic ---
+        function renderPracticeQuestion() {
+            if (activeQuestionBank.length === 0) return;
+            const q = activeQuestionBank[practiceIndex];
+            const container = document.getElementById('practice-container');
+
+            const answeredCount = practiceAnswers.filter(a => a !== null).length;
+            const correctCount = practiceAnswers.filter((a, idx) => a !== null && a === activeQuestionBank[idx].answer).length;
+            const accuracy = answeredCount === 0 ? 0 : Math.round((correctCount / answeredCount) * 100);
+
+            document.getElementById('practice-progress-text').textContent = `練習進度：${practiceIndex + 1} / ${activeQuestionBank.length} (已答: ${answeredCount})`;
+            document.getElementById('practice-accuracy-text').textContent = `正確率：${accuracy}%`;
+            document.getElementById('practice-progress-bar').style.width = `${((practiceIndex + 1) / activeQuestionBank.length) * 100}%`;
+
+            let optionsHTML = '';
+            const userChoice = practiceAnswers[practiceIndex];
+            const isAnswered = userChoice !== null;
+
+            for (const [key, val] of Object.entries(q.options)) {
+                let statusClass = '';
+                if (isAnswered) {
+                    if (key === q.answer) statusClass = 'correct';
+                    else if (key === userChoice) statusClass = 'incorrect';
+                    else statusClass = 'disabled';
+                }
+
+                const escapedVal = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                const hasOptExp = q.option_exps && q.option_exps[key];
+                const optExpContent = hasOptExp ? q.option_exps[key].replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+                const isCorrect = key === q.answer;
+                
+                const badgeHTML = isCorrect
+                    ? `<span style="background-color: var(--success); color: white; padding: 2px 6px; border-radius: 4px; font-weight: 700; font-size: 0.75rem; margin-right: 6px; display: inline-block;">對</span>`
+                    : `<span style="background-color: var(--error); color: white; padding: 2px 6px; border-radius: 4px; font-weight: 700; font-size: 0.75rem; margin-right: 6px; display: inline-block;">錯</span>`;
+                
+                const optionExpText = (hasOptExp && globalShowExplanation && isAnswered)
+                    ? `<div class="option-explanation" style="margin-top: 8px; font-size: 0.85rem; line-height: 1.4; color: var(--text-secondary); border-top: 1px dashed var(--option-border); padding-top: 6px; width: 100%;">💡 <strong>解析：</strong>${badgeHTML}${optExpContent}</div>`
+                    : '';
+
+                const optionContent = q.options_are_images
+                    ? `<img src="圖片/python/q${q.id}_${key}.png" class="option-image" alt="Option ${key}">`
+                    : escapedVal;
+
+                if (isAnswered) {
+                    optionsHTML += `
+                        <div class="option ${statusClass} disabled" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+                            <div style="display: flex; align-items: center; gap: 12px; width: 100%;">
+                                <span class="option-prefix">${key}</span>
+                                <span>${optionContent}</span>
+                            </div>
+                            ${optionExpText}
+                        </div>
+                    `;
+                } else {
+                    optionsHTML += `
+                        <button class="option" onclick="selectPracticeOption('${key}')">
+                            <span class="option-prefix">${key}</span>
+                            <span>${optionContent}</span>
+                        </button>
+                    `;
+                }
+            }
+
+            // If there's code-like block or multiline question, preserve formatting
+            const escapedQuestion = q.question.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\\n/g, "<br>");
+            
+            let questionImageHTML = '';
+            if (q.question_img) {
+                questionImageHTML = `<img src="${q.question_img}" class="question-image" alt="Question Image">`;
+            } else if (q.question_imgs && Array.isArray(q.question_imgs)) {
+                questionImageHTML = q.question_imgs.map(imgSrc => `<img src="${imgSrc}" class="question-image" alt="Question Image">`).join('');
+            }
+
+            const isPinned = isQuestionPinned(q.id);
+            container.innerHTML = `
+                <div class="q-card">
+                    <div class="q-header">
+                        <span class="q-badge python">Python 認證</span>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <button class="action-btn ${isPinned ? 'primary-btn' : 'secondary-btn'}" style="padding: 4px 8px; font-size: 0.75rem; border-radius: 6px; gap: 4px; display: flex; align-items: center;" onclick="togglePracticePin()">
+                                ${isPinned ? '📌 已釘選' : '📌 釘選此題'}
+                            </button>
+                            <span class="q-num">題號: #${q.id}</span>
+                        </div>
+                    </div>
+                    <div class="q-text" style="white-space: pre-wrap; font-family: inherit;">${escapedQuestion}</div>
+                    ${questionImageHTML}
+                    <div class="options-list ${isAnswered ? '' : 'grid-mode'}">
+                        ${optionsHTML}
+                    </div>
+                </div>
+            `;
+
+            const expBox = document.getElementById('practice-explanation');
+            if (isAnswered) {
+                const isCorrect = userChoice === q.answer;
+                expBox.className = `alert-box ${isCorrect ? 'success' : 'error'}`;
+                
+                const escapedExp = q.explanation ? q.explanation.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>") : "";
+                const expText = (globalShowExplanation && q.explanation) 
+                    ? `<div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(${isCorrect ? '16, 185, 129' : '239, 68, 68'}, 0.2); font-size: 0.88rem; line-height: 1.5; color: var(--text-primary);"><strong>綜合解析：</strong>${escapedExp}</div>` 
+                    : '';
+                
+                const analogyHTML = (globalShowExplanation)
+                    ? `<div class="analogy-box" style="margin-top: 10px; padding: 12px 15px; background: rgba(245, 158, 11, 0.08); border-left: 4px solid var(--warning); border-radius: 0 8px 8px 0; font-size: 0.88rem; line-height: 1.5; color: var(--text-primary); text-align: left;">${getAnalogy(q)}</div>`
+                    : '';
+                expBox.innerHTML = isCorrect
+                    ? `<div><span>✅ 答對了！</span> 答案是 <strong>(${q.answer})</strong>${expText}${analogyHTML}</div>`
+                    : `<div><span>❌ 答錯了！</span> 您的選擇是 <strong>(${userChoice})</strong>，正確答案是 <strong>(${q.answer})</strong>${expText}${analogyHTML}</div>`;
+            } else {
+                expBox.className = 'alert-box';
+                expBox.innerHTML = '';
+            }
+
+            document.getElementById('practice-prev-btn').disabled = practiceIndex === 0;
+            document.getElementById('practice-next-btn').disabled = practiceIndex === activeQuestionBank.length - 1;
+            
+            // Update wrong questions table
+            updatePracticeWrongTable();
+            updatePracticePinnedTable();
+        }
+
+                function selectPracticeOption(choice) {
+            const q = activeQuestionBank[practiceIndex];
+            if (!q) return;
+
+            const answersMap = JSON.parse(localStorage.getItem('answers_' + currentBankName) || '{}');
+            if (answersMap[q.id] !== undefined) return; 
+
+            answersMap[q.id] = choice;
+            localStorage.setItem('answers_' + currentBankName, JSON.stringify(answersMap));
+
+            practiceAnswers[practiceIndex] = choice;
+
+            // If choice is incorrect, add to wrong history
+            if (choice !== q.answer) {
+                const historyKey = 'wrong_history_' + currentBankName;
+                let wrongHistory = JSON.parse(localStorage.getItem(historyKey) || '[]');
+                if (!wrongHistory.includes(q.id)) {
+                    wrongHistory.push(q.id);
+                    localStorage.setItem(historyKey, JSON.stringify(wrongHistory));
+                }
+            }
+
+            renderPracticeQuestion();
+        }
+
+        function practiceNextQuestion() {
+            if (practiceIndex < activeQuestionBank.length - 1) {
+                practiceIndex++;
+                renderPracticeQuestion();
+            }
+        }
+
+        function practicePrevQuestion() {
+            if (practiceIndex > 0) {
+                practiceIndex--;
+                renderPracticeQuestion();
+            }
+        }
+
+        function resetPractice() {
+            if (confirm("確定要重新練習嗎？\n\n錯題將自動排到最前面，幫助您加強複習弱點。")) {
+                // Step 1: 先依目前答題結果排序
+                initActiveQuestionBank();
+                // Step 2: 再清空答案
+                localStorage.removeItem('answers_' + currentBankName);
+                practiceAnswers = activeQuestionBank.map(() => null);
+                practiceIndex = 0;
+                renderPracticeQuestion();
+            }
+        }
+
+        // --- Wrong Questions Table Helpers ---
+        
+        // --- Pinned Questions Table Helpers ---
+        function isQuestionPinned(qId) {
+            const pins = JSON.parse(localStorage.getItem('pins_' + currentBankName) || '[]');
+            return pins.includes(qId);
+        }
+
+        function togglePracticePin() {
+            const q = activeQuestionBank[practiceIndex];
+            if (!q) return;
+            const key = 'pins_' + currentBankName;
+            let pins = JSON.parse(localStorage.getItem(key) || '[]');
+            const qId = q.id;
+            if (pins.includes(qId)) {
+                pins = pins.filter(id => id !== qId);
+            } else {
+                pins.push(qId);
+            }
+            localStorage.setItem(key, JSON.stringify(pins));
+            renderPracticeQuestion();
+            updatePracticePinnedTable();
+        }
+
+        function updatePracticePinnedTable() {
+            const tableSection = document.getElementById('practice-pinned-section');
+            const tbody = document.getElementById('practice-pinned-table-body');
+            if (!tableSection || !tbody) return;
+
+            const pins = JSON.parse(localStorage.getItem('pins_' + currentBankName) || '[]');
+            if (pins.length === 0) {
+                tableSection.style.display = 'none';
+                tbody.innerHTML = '';
+                return;
+            }
+
+            tableSection.style.display = 'block';
+            tbody.innerHTML = '';
+
+            const answersMap = JSON.parse(localStorage.getItem('answers_' + currentBankName) || '{}');
+
+            pins.forEach(qId => {
+                const q = activeQuestionBank.find(item => item.id === qId);
+                if (!q) return;
+
+                const choice = answersMap[q.id];
+                let statusHTML = '';
+                if (choice === undefined) {
+                    statusHTML = '<span style="color: var(--text-secondary);">⚪ 未作答</span>';
+                } else if (choice === q.answer) {
+                    statusHTML = '<span style="color: var(--success); font-weight: 700;">✅ 答對</span>';
+                } else {
+                    statusHTML = '<span style="color: var(--error); font-weight: 700;">❌ 答錯</span>';
+                }
+
+                const cleanQuestion = q.question.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, " ");
+                const truncatedQuestion = cleanQuestion.length > 60 ? cleanQuestion.substring(0, 60) + '...' : cleanQuestion;
+
+                const qIndex = activeQuestionBank.findIndex(item => item.id === q.id);
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td style="text-align: center; font-weight: 700; color: var(--primary);">#${q.id}</td>
+                        <td style="font-size: 0.88rem; color: var(--text-secondary); max-width: 400px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${cleanQuestion}">${truncatedQuestion}</td>
+                        <td style="text-align: center;">${statusHTML}</td>
+                        <td style="text-align: center; font-weight: 700; color: var(--success); font-family: 'IBM Plex Mono', monospace;">${q.answer}</td>
+                        <td style="text-align: center;">
+                            <div style="display: flex; justify-content: center; gap: 6px;">
+                                <button class="action-btn primary-btn" style="padding: 4px 10px; font-size: 0.75rem; display: inline-block;" onclick="jumpToPracticeQuestion(${qIndex})">
+                                    🎯 前往
+                                </button>
+                                <button class="action-btn secondary-btn" style="padding: 4px 10px; font-size: 0.75rem; display: inline-block;" onclick="unpinFromTable(${q.id})">
+                                    ❌ 取消
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function unpinFromTable(qId) {
+            const key = 'pins_' + currentBankName;
+            let pins = JSON.parse(localStorage.getItem(key) || '[]');
+            pins = pins.filter(id => id !== qId);
+            localStorage.setItem(key, JSON.stringify(pins));
+            renderPracticeQuestion();
+            updatePracticePinnedTable();
+        }
+function updatePracticeWrongTable() {
+            const tableSection = document.getElementById('practice-wrong-section');
+            const tbody = document.getElementById('practice-wrong-table-body');
+            if (!tableSection || !tbody) return;
+
+            const answersMap = JSON.parse(localStorage.getItem('answers_' + currentBankName) || '{}');
+            
+            // Find all wrong questions in the current bank
+            const wrongQuestions = activeQuestionBank.filter(q => {
+                const choice = answersMap[q.id];
+                return choice !== undefined && choice !== q.answer;
+            });
+
+            if (wrongQuestions.length === 0) {
+                tableSection.style.display = 'none';
+                tbody.innerHTML = '';
+                return;
+            }
+
+            tableSection.style.display = 'block';
+            tbody.innerHTML = '';
+
+            wrongQuestions.forEach(q => {
+                const choice = answersMap[q.id];
+                const cleanQuestion = q.question.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\\n/g, " ");
+                const truncatedQuestion = cleanQuestion.length > 60 ? cleanQuestion.substring(0, 60) + '...' : cleanQuestion;
+
+                // Find index of this question in the activeQuestionBank to allow jumping to it
+                const qIndex = activeQuestionBank.findIndex(item => item.id === q.id);
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td style="text-align: center; font-weight: 700; color: var(--error);">#${q.id}</td>
+                        <td style="font-size: 0.88rem; color: var(--text-secondary); max-width: 400px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${cleanQuestion}">${truncatedQuestion}</td>
+                        <td style="text-align: center; font-weight: 700; color: var(--error); font-family: 'IBM Plex Mono', monospace;">${choice}</td>
+                        <td style="text-align: center; font-weight: 700; color: var(--success); font-family: 'IBM Plex Mono', monospace;">${q.answer}</td>
+                        <td style="text-align: center;">
+                            <button class="action-btn primary-btn" style="padding: 4px 10px; font-size: 0.75rem; display: inline-block;" onclick="jumpToPracticeQuestion(${qIndex})">
+                                🎯 前往複習
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function jumpToPracticeQuestion(index) {
+            if (index >= 0 && index < activeQuestionBank.length) {
+                practiceIndex = index;
+                renderPracticeQuestion();
+                window.scrollTo({ top: document.getElementById('practice-container').offsetTop - 100, behavior: 'smooth' });
+            }
+        }
+
+        // --- 2. Exam Mode Logic ---
+        function startExam() {
+            // Pick 25 questions randomly
+            const shuffled = [...activeQuestionBank].sort(() => 0.5 - Math.random());
+            examQuestions = shuffled.slice(0, 25);
+            examAnswers = Array(25).fill(null);
+            examMarks = Array(25).fill(false);
+            examIndex = 0;
+            examTimeRemaining = 1200; // 20 mins
+            examStartTime = Date.now();
+
+            document.getElementById('exam-intro').style.display = 'none';
+            document.getElementById('exam-result').style.display = 'none';
+            document.getElementById('exam-testing').style.display = 'block';
+
+            renderExamQuestion();
+            renderExamSidebar();
+            startTimer();
+        }
+
+        function renderExamQuestion() {
+            const q = examQuestions[examIndex];
+            const container = document.getElementById('exam-question-container');
+            const isMarked = examMarks[examIndex];
+
+            document.getElementById('exam-mark-btn').innerHTML = isMarked ? '📌 取消標記' : '📌 標記此題';
+            document.getElementById('exam-mark-btn').className = isMarked ? 'action-btn secondary-btn marked' : 'action-btn secondary-btn';
+
+            let optionsHTML = '';
+            const userChoice = examAnswers[examIndex];
+
+            for (const [key, val] of Object.entries(q.options)) {
+                const isSelected = userChoice === key;
+                const escapedVal = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                const optionContent = q.options_are_images
+                    ? `<img src="圖片/python/q${q.id}_${key}.png" class="option-image" alt="Option ${key}">`
+                    : escapedVal;
+                optionsHTML += `
+                    <button class="option ${isSelected ? 'selected' : ''}" onclick="selectExamOption('${key}')">
+                        <span class="option-prefix">${key}</span>
+                        <span>${optionContent}</span>
+                    </button>
+                `;
+            }
+
+            const escapedQuestion = q.question.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\\n/g, "<br>");
+
+            let questionImageHTML = '';
+            if (q.question_img) {
+                questionImageHTML = `<img src="${q.question_img}" class="question-image" alt="Question Image">`;
+            } else if (q.question_imgs && Array.isArray(q.question_imgs)) {
+                questionImageHTML = q.question_imgs.map(imgSrc => `<img src="${imgSrc}" class="question-image" alt="Question Image">`).join('');
+            }
+
+            container.innerHTML = `
+                <div class="q-card" style="margin-bottom: 5px;">
+                    <div class="q-header">
+                        <span class="q-badge python">Python 認證</span>
+                        <span class="q-num">題目: ${examIndex + 1} / 25</span>
+                    </div>
+                    <div class="q-text" style="white-space: pre-wrap; font-family: inherit;">${escapedQuestion}</div>
+                    ${questionImageHTML}
+                    <div class="options-list">
+                        ${optionsHTML}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderExamSidebar() {
+            const grid = document.getElementById('exam-nav-grid');
+            grid.innerHTML = '';
+
+            let answered = 0;
+            for (let i = 0; i < 25; i++) {
+                let navClass = 'nav-btn';
+                if (examIndex === i) navClass += ' current';
+                else if (examMarks[i]) navClass += ' marked';
+                else if (examAnswers[i] !== null) navClass += ' answered';
+
+                if (examAnswers[i] !== null) answered++;
+
+                grid.innerHTML += `
+                    <button class="${navClass}" onclick="jumpToExamQuestion(${i})">${i + 1}</button>
+                `;
+            }
+
+            document.getElementById('exam-answered-count').textContent = answered;
+            document.getElementById('exam-unanswered-count').textContent = 25 - answered;
+        }
+
+        function selectExamOption(choice) {
+            examAnswers[examIndex] = choice;
+            renderExamQuestion();
+            renderExamSidebar();
+        }
+
+        function jumpToExamQuestion(idx) {
+            examIndex = idx;
+            renderExamQuestion();
+            renderExamSidebar();
+        }
+
+        function examNextQuestion() {
+            if (examIndex < 24) {
+                examIndex++;
+                renderExamQuestion();
+                renderExamSidebar();
+            }
+        }
+
+        function examPrevQuestion() {
+            if (examIndex > 0) {
+                examIndex--;
+                renderExamQuestion();
+                renderExamSidebar();
+            }
+        }
+
+        function toggleMarkQuestion() {
+            examMarks[examIndex] = !examMarks[examIndex];
+            renderExamQuestion();
+            renderExamSidebar();
+        }
+
+        function startTimer() {
+            if (examTimerInterval) clearInterval(examTimerInterval);
+
+            const timerVal = document.getElementById('timer-val');
+            const timerBox = document.getElementById('exam-timer');
+            timerBox.classList.remove('urgent');
+
+            examTimerInterval = setInterval(() => {
+                examTimeRemaining--;
+                if (examTimeRemaining <= 0) {
+                    clearInterval(examTimerInterval);
+                    timerVal.textContent = "00:00";
+                    submitExam(true);
+                } else {
+                    const mins = Math.floor(examTimeRemaining / 60).toString().padStart(2, '0');
+                    const secs = (examTimeRemaining % 60).toString().padStart(2, '0');
+                    timerVal.textContent = `${mins}:${secs}`;
+
+                    if (examTimeRemaining <= 120) {
+                        timerBox.classList.add('urgent');
+                    }
+                }
+            }, 1000);
+        }
+
+        function submitExamPrompt() {
+            const unanswered = examAnswers.filter(a => a === null).length;
+            let msg = "確定要提交試卷嗎？";
+            if (unanswered > 0) {
+                msg = `您還有 ${unanswered} 題尚未回答，${msg}`;
+            }
+            if (confirm(msg)) {
+                submitExam(false);
+            }
+        }
+
+        function submitExam(isTimeout) {
+            clearInterval(examTimerInterval);
+
+            if (isTimeout) {
+                alert("測驗時間已到！系統已自動為您交卷。");
+            }
+
+            let score = 0;
+            let correct = 0;
+            let reviewList = [];
+
+            examQuestions.forEach((q, idx) => {
+                const userAns = examAnswers[idx];
+                const isCorrect = userAns === q.answer;
+                const isMarked = examMarks[idx];
+                
+                if (isCorrect) {
+                    correct++;
+                    score += 4; // 25 questions * 4 = 100
+                }
+                
+                // Show in review if wrong OR if marked
+                if (!isCorrect || isMarked) {
+                    reviewList.push({
+                        q: q,
+                        userAns: userAns || "未作答",
+                        isCorrect: isCorrect,
+                        isMarked: isMarked,
+                        examIdx: idx
+                    });
+                }
+            });
+
+            const timeUsedSecs = 1200 - examTimeRemaining;
+            const timeUsedMin = Math.floor(timeUsedSecs / 60).toString().padStart(2, '0');
+            const timeUsedSec = (timeUsedSecs % 60).toString().padStart(2, '0');
+            const timeStr = `${timeUsedMin}:${timeUsedSec}`;
+
+            // Save to localStorage history
+            const historyKey = getHistoryKey();
+            const history = JSON.parse(localStorage.getItem(historyKey) || '[]');
+            const record = {
+                score: score,
+                correct: correct,
+                total: 25,
+                time: timeStr,
+                date: new Date().toLocaleString()
+            };
+            history.unshift(record);
+            localStorage.setItem(historyKey, JSON.stringify(history));
+
+            // Show results dashboard
+            document.getElementById('exam-testing').style.display = 'none';
+            document.getElementById('exam-result').style.display = 'block';
+
+            document.getElementById('result-score-val').textContent = score;
+            const resultStatus = document.getElementById('result-status-text');
+            if (score >= 60) {
+                resultStatus.className = 'result-status pass';
+                resultStatus.textContent = "恭喜通過測驗！🎉";
+            } else {
+                resultStatus.className = 'result-status fail';
+                resultStatus.textContent = "未通過測驗，再接再厲！💪";
+            }
+
+            document.getElementById('result-feedback-text').textContent = `答對 ${correct} 題，答錯 ${25 - correct} 題。`;
+            document.getElementById('stat-correct-count').textContent = correct;
+            document.getElementById('stat-incorrect-count').textContent = 25 - correct;
+            document.getElementById('stat-time-used').textContent = timeStr;
+
+            // Render Wrong & Marked Answers Review
+            const reviewContainer = document.getElementById('wrong-answers-review');
+            reviewContainer.innerHTML = '';
+
+            if (reviewList.length === 0) {
+                reviewContainer.innerHTML = `
+                    <div class="alert-box success" style="display: flex; margin-bottom: 20px; width: 100%;">
+                        <span>🏆 太棒了！您獲得了滿分，沒有任何錯題。</span>
+                    </div>
+                `;
+            } else {
+                reviewList.forEach((item) => {
+                    const q = item.q;
+                    let optsListHTML = '';
+                    for (const [key, val] of Object.entries(q.options)) {
+                        let cl = '';
+                        if (key === q.answer) cl = 'correct';
+                        else if (key === item.userAns) cl = 'incorrect';
+
+                        const isCorrectOption = key === q.answer;
+                        const badgeHTML = isCorrectOption
+                            ? `<span style="background-color: var(--success); color: white; padding: 2px 6px; border-radius: 4px; font-weight: 700; font-size: 0.75rem; margin-right: 6px; display: inline-block;">對</span>`
+                            : `<span style="background-color: var(--error); color: white; padding: 2px 6px; border-radius: 4px; font-weight: 700; font-size: 0.75rem; margin-right: 6px; display: inline-block;">錯</span>`;
+
+                        const hasOptExp = q.option_exps && q.option_exps[key];
+                        const optExpContent = hasOptExp ? q.option_exps[key].replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+                        const optionExpText = hasOptExp 
+                            ? `<div class="option-explanation exam-review-exp" style="margin-top: 8px; font-size: 0.85rem; line-height: 1.4; color: var(--text-secondary); border-top: 1px dashed var(--option-border); padding-top: 6px; width: 100%; display: ${globalShowExplanation ? 'block' : 'none'};">💡 <strong>解析：</strong>${badgeHTML}${optExpContent}</div>` 
+                            : '';
+
+                        const optionContent = q.options_are_images
+                            ? `<img src="圖片/python/q${q.id}_${key}.png" class="option-image" alt="Option ${key}">`
+                            : val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+                        optsListHTML += `
+                            <div class="option ${cl} disabled" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+                                <div style="display: flex; align-items: center; gap: 12px; width: 100%;">
+                                    <span class="option-prefix">${key}</span>
+                                    <span>${optionContent}</span>
+                                </div>
+                                ${optionExpText}
+                            </div>
+                        `;
+                    }
+
+                    const escapedQuestion = q.question.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\\n/g, "<br>");
+                    
+                    let questionImageHTML = '';
+                    if (q.question_img) {
+                        questionImageHTML = `<img src="${q.question_img}" class="question-image" alt="Question Image">`;
+                    } else if (q.question_imgs && Array.isArray(q.question_imgs)) {
+                        questionImageHTML = q.question_imgs.map(imgSrc => `<img src="${imgSrc}" class="question-image" alt="Question Image">`).join('');
+                    }
+
+                    const expText = q.explanation 
+                        ? `<div class="study-explanation exam-review-exp" style="margin-top: 10px; padding: 10px 12px; background: rgba(99, 102, 241, 0.05); border-left: 3px solid var(--primary); border-radius: 0 6px 6px 0; font-size: 0.88rem; color: var(--text-primary); line-height: 1.5; display: ${globalShowExplanation ? 'block' : 'none'};"><strong>綜合解析：</strong>${q.explanation.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>")}</div>` 
+                        : '';
+                    const analogyText = `<div class="analogy-box exam-review-exp" style="margin-top: 8px; padding: 10px 12px; background: rgba(245, 158, 11, 0.08); border-left: 3px solid var(--warning); border-radius: 0 6px 6px 0; font-size: 0.88rem; color: var(--text-primary); line-height: 1.5; display: ${globalShowExplanation ? 'block' : 'none'};">${getAnalogy(q)}</div>`;
+
+                    const borderColor = item.isCorrect ? 'var(--primary)' : 'var(--error)';
+                    const numColor = item.isCorrect ? 'var(--primary)' : 'var(--error)';
+                    const revealBg = item.isCorrect ? 'rgba(16, 185, 129, 0.05)' : 'rgba(239, 68, 68, 0.05)';
+                    const revealBorderColor = item.isCorrect ? 'var(--success)' : 'var(--error)';
+                    const revealColor = item.isCorrect ? 'var(--success)' : 'var(--error)';
+                    
+                    let cardTitle = '';
+                    if (item.isCorrect) {
+                        cardTitle = `📌 標記題 (已答對) #${item.examIdx + 1} (原始題號: #${q.id})`;
+                    } else {
+                        const markedPrefix = item.isMarked ? '📌 ' : '';
+                        cardTitle = `${markedPrefix}錯題 #${item.examIdx + 1} (原始題號: #${q.id})`;
+                    }
+
+                    const revealText = item.isCorrect
+                        ? `正確答案為：(${q.answer}) | 您的選擇：(${item.userAns}) (答對)`
+                        : `正確答案為：(${q.answer}) | 您的選擇：(${item.userAns})`;
+
+                    reviewContainer.innerHTML += `
+                        <div class="q-card" style="border-color: ${borderColor}; width: 100%;">
+                            <div class="q-header">
+                                <span class="q-badge python">Python 認證</span>
+                                <span class="q-num" style="color: ${numColor}; font-weight: 700;">${cardTitle}</span>
+                            </div>
+                            <div class="q-text" style="white-space: pre-wrap; font-family: inherit;">${escapedQuestion}</div>
+                            ${questionImageHTML}
+                            <div class="options-list" style="margin-bottom: 15px;">
+                                ${optsListHTML}
+                            </div>
+                            <div class="answer-reveal visible" style="background: ${revealBg}; border-left-color: ${revealBorderColor}; color: ${revealColor}; font-weight: 700;">
+                                ${revealText}
+                            </div>
+                            ${expText}
+                            ${analogyText}
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        function restartExamMode() {
+            document.getElementById('exam-result').style.display = 'none';
+            document.getElementById('exam-intro').style.display = 'block';
+        }
+
+        // --- 3. Study/Browse Mode Logic ---
+        function renderStudyQuestions() {
+            const container = document.getElementById('study-questions-list');
+            container.innerHTML = '';
+
+            let filtered = activeQuestionBank;
+
+            // Search query filter
+            if (studySearchQuery.trim() !== '') {
+                const query = studySearchQuery.toLowerCase();
+                filtered = filtered.filter(q => {
+                    return q.question.toLowerCase().includes(query) || 
+                           Object.values(q.options).some(o => o.toLowerCase().includes(query)) ||
+                           (q.explanation && q.explanation.toLowerCase().includes(query));
+                });
+            }
+
+            document.getElementById('study-results-count').textContent = `顯示 ${activeQuestionBank.length} 題中的 ${filtered.length} 題`;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; color: var(--text-secondary); padding: 40px 0; grid-column: 1 / -1; width: 100%;">
+                        <span>🔍 找不到符合關鍵字的題目。</span>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(q => {
+                let optsHTML = '';
+                for (const [key, val] of Object.entries(q.options)) {
+                    const isCorrect = key === q.answer;
+                    const optionClass = isCorrect ? 'correct disabled' : 'disabled';
+                    
+                    const hasOptExp = q.option_exps && q.option_exps[key];
+                    const optExpContent = hasOptExp ? q.option_exps[key].replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+                    const badgeHTML = isCorrect
+                        ? `<span style="background-color: var(--success); color: white; padding: 2px 6px; border-radius: 4px; font-weight: 700; font-size: 0.75rem; margin-right: 6px; display: inline-block;">對</span>`
+                        : `<span style="background-color: var(--error); color: white; padding: 2px 6px; border-radius: 4px; font-weight: 700; font-size: 0.75rem; margin-right: 6px; display: inline-block;">錯</span>`;
+                    
+                    const optionExpText = (hasOptExp && globalShowExplanation)
+                        ? `<div class="option-explanation study-exp-${q.id}" style="margin-top: 8px; font-size: 0.85rem; line-height: 1.4; color: var(--text-secondary); border-top: 1px dashed var(--option-border); padding-top: 6px; width: 100%; display: ${allStudyReveal ? 'block' : 'none'};">💡 <strong>解析：</strong>${badgeHTML}${optExpContent}</div>`
+                        : '';
+
+                    const optionContent = q.options_are_images
+                        ? `<img src="圖片/python/q${q.id}_${key}.png" class="option-image" alt="Option ${key}">`
+                        : val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+                    optsHTML += `
+                        <div class="option ${optionClass}" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+                            <div style="display: flex; align-items: center; gap: 12px; width: 100%;">
+                                <span class="option-prefix">${key}</span>
+                                <span>${optionContent}</span>
+                            </div>
+                            ${optionExpText}
+                        </div>
+                    `;
+                }
+
+                const escapedQuestion = q.question.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\\n/g, "<br>");
+                
+                let questionImageHTML = '';
+                if (q.question_img) {
+                    questionImageHTML = `<img src="${q.question_img}" class="question-image" alt="Question Image">`;
+                } else if (q.question_imgs && Array.isArray(q.question_imgs)) {
+                    questionImageHTML = q.question_imgs.map(imgSrc => `<img src="${imgSrc}" class="question-image" alt="Question Image">`).join('');
+                }
+
+                const escapedExp = q.explanation ? q.explanation.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>") : "";
+                
+                const expText = q.explanation 
+                    ? `<div class="study-explanation study-exp-${q.id}" style="margin-top: 10px; padding: 10px 12px; background: rgba(99, 102, 241, 0.05); border-left: 3px solid var(--primary); border-radius: 0 6px 6px 0; font-size: 0.88rem; color: var(--text-primary); line-height: 1.5; display: ${allStudyReveal ? 'block' : 'none'};"><strong>綜合解析：</strong>${escapedExp}</div>` 
+                    : '';
+                const analogyText = `<div class="analogy-box study-exp-${q.id}" style="margin-top: 8px; padding: 10px 12px; background: rgba(245, 158, 11, 0.08); border-left: 3px solid var(--warning); border-radius: 0 6px 6px 0; font-size: 0.88rem; color: var(--text-primary); line-height: 1.5; display: ${allStudyReveal ? 'block' : 'none'};">${getAnalogy(q)}</div>`;
+
+                container.innerHTML += `
+                    <div class="q-card study-card" style="width: 100%;">
+                        <div class="q-header">
+                            <span class="q-badge python">Python 認證</span>
+                            <span class="q-num">原始題號: #${q.id}</span>
+                        </div>
+                        <div class="q-text" style="white-space: pre-wrap; font-family: inherit;">${escapedQuestion}</div>
+                        ${questionImageHTML}
+                        <div class="options-list" style="margin-bottom: 15px;">
+                            ${optsHTML}
+                        </div>
+                        <div style="display: flex; gap: 10px; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                            <button class="action-btn secondary-btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="toggleStudyAnswer(${q.id}, this)">
+                                👁️ 顯示正解
+                            </button>
+                            <div class="answer-reveal study-reveal-${q.id} ${allStudyReveal ? 'visible' : ''}">
+                                正確答案為：(${q.answer})
+                            </div>
+                        </div>
+                        ${expText}
+                        ${analogyText}
+                    </div>
+                `;
+            });
+        }
+
+        function toggleStudyAnswer(qid, btn) {
+            const reveal = document.querySelector(`.study-reveal-${qid}`);
+            const exps = document.querySelectorAll(`.study-exp-${qid}`);
+            
+            if (reveal) {
+                const isVisible = reveal.classList.contains('visible');
+                if (isVisible) {
+                    reveal.classList.remove('visible');
+                    btn.textContent = '👁️ 顯示正解';
+                    exps.forEach(el => el.style.display = 'none');
+                } else {
+                    reveal.classList.add('visible');
+                    btn.textContent = '🙈 隱藏正解';
+                    if (globalShowExplanation) {
+                        exps.forEach(el => el.style.display = 'block');
+                    }
+                }
+            }
+        }
+
+        function toggleAllStudyAnswers() {
+            allStudyReveal = !allStudyReveal;
+            renderStudyQuestions();
+        }
+
+        function filterStudyCategory(cat, element) {
+            document.querySelectorAll('.filter-tag').forEach(tag => tag.classList.remove('active'));
+            element.classList.add('active');
+            renderStudyQuestions();
+        }
+
+        function filterStudyQuestions() {
+            studySearchQuery = document.getElementById('study-search').value;
+            renderStudyQuestions();
+        }
+
+        // --- 4. History Modal Logic ---
+        document.getElementById('sidebarHistoryBtn').addEventListener('click', () => {
+            toggleHistoryModal(true);
+        });
+
+        function toggleHistoryModal(show) {
+            const modal = document.getElementById('historyModal');
+            if (show) {
+                modal.classList.add('active');
+                renderHistory();
+            } else {
+                modal.classList.remove('active');
+            }
+        }
+
+        function getHistoryKey() {
+            return currentBankName ? `history_${currentBankName}` : 'history_python_global';
+        }
+
+        function renderHistory() {
+            const container = document.getElementById('historyListContainer');
+            const historyKey = getHistoryKey();
+            const history = JSON.parse(localStorage.getItem(historyKey) || '[]');
+
+            if (history.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; color: var(--text-secondary); padding: 30px 0;">
+                        <span>📭 目前尚無模擬測驗紀錄。</span>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = '';
+                history.forEach(item => {
+                    const isPass = item.score >= 60;
+                    container.innerHTML += `
+                        <div class="history-item">
+                            <div>
+                                <div class="history-date">${item.date}</div>
+                                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 3px;">
+                                    答對 ${item.correct} 題 / 時間：${item.time}
+                                </div>
+                            </div>
+                            <div class="history-score ${isPass ? 'pass' : 'fail'}">
+                                ${item.score} 分 (${isPass ? '及格' : '不及格'})
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        function clearHistory() {
+            if (confirm("確定要刪除該卷所有測驗歷史紀錄嗎？這項動作無法復原。")) {
+                const historyKey = getHistoryKey();
+                localStorage.removeItem(historyKey);
+                renderHistory();
+            }
+        }
+
+        // --- Initial Load ---
+        window.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            switchPage('roadmap');
+        });
+    </script>
+</body>
+</html>
