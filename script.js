@@ -1,5 +1,29 @@
 // miHoYo ACG Club Website Interactive Logic
 
+// ==========================================================================
+// 1. 強制禁用手機/電腦瀏覽器歷史位置還原，確保每次進入時皆置頂於 Hero 橫幅
+// ==========================================================================
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
+function forceScrollToTop() {
+  // 進入頁面時強制回到 (0, 0) 最頂端，防止跳轉至先前滾動的下半部
+  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  if (document.documentElement) document.documentElement.scrollTop = 0;
+  if (document.body) document.body.scrollTop = 0;
+}
+
+// 監聽各種載入事件（包含手機瀏覽器返回/切回背景快取 pageshow）
+window.addEventListener('pageshow', forceScrollToTop);
+window.addEventListener('DOMContentLoaded', forceScrollToTop);
+window.addEventListener('load', forceScrollToTop);
+
+// 延遲再次確認，防止部分手機瀏覽器在非同步資源載入時觸發還原
+setTimeout(forceScrollToTop, 50);
+setTimeout(forceScrollToTop, 150);
+setTimeout(forceScrollToTop, 300);
+
 function initMihoyoClubWebsite() {
   // Mobile Hamburger Menu Toggle
   const hamburgerBtn = document.getElementById('hamburgerBtn');
