@@ -1235,17 +1235,20 @@ footer p {
     background-size: cover;
   }
 
-  /* 針對三大遊戲最新前瞻圖在手機直向螢幕上的「人物主體核心焦點」最佳化 */
+  /* 針對三大遊戲最新前瞻圖在手機直向螢幕上的「人物主體核心焦點」最佳化（向右挪動 1/6 螢幕寬度） */
   .hero-slide.slide-hsr {
-    background-position: 43% 30%; /* 星鐵：精確聚焦知更鳥看板娘核心半身主體 */
+    background-position: 37% 30%;
+    background-position: calc(43% + 16.67vw) 30%;
   }
 
   .hero-slide.slide-genshin {
-    background-position: 74% 36%; /* 原神：精確聚焦右側冰神大立繪與神明主體 */
+    background-position: 68% 36%;
+    background-position: calc(74% + 16.67vw) 36%;
   }
 
   .hero-slide.slide-zzz {
-    background-position: 72% 28%; /* 絕區零：精確聚焦王座金髮少女神態與上半身，告別鞋底牆壁 */
+    background-position: 66% 28%;
+    background-position: calc(72% + 16.67vw) 28%;
   }
 
   /* 手機端柔和漸層遮罩：上方通透呈現人物，下方深色襯托文字 */
