@@ -36,6 +36,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -269,6 +270,12 @@ body {
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hero-section * {
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Slideshow Container */
@@ -1207,6 +1214,10 @@ footer p {
     display: flex;
     flex-direction: column;
     justify-content: flex-end; /* 將文字移至畫面下方，把上方寬敞空間完整留給人物主體！ */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   .hero-slideshow {
