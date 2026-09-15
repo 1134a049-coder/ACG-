@@ -1399,14 +1399,33 @@ footer p {
     font-size: 13px;
   }
 
-  /* Tabs Mobile */
+  /* Tabs Mobile - 四個切換按鈕等距離排列 */
   .game-tabs-nav {
-    gap: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: nowrap;
   }
 
   .tab-btn {
-    padding: 9px 15px;
-    font-size: 13px;
-    border-radius: 10px;
+    padding: 0;
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    border-radius: 13px;
+  }
+
+  .tab-btn[data-game="all"] {
+    width: 52px;
+    height: 52px;
+    border-radius: 13px;
+    font-size: 14px;
+  }
+
+  .tab-icon-img {
+    width: 52px;
+    height: 52px;
+    border-radius: 13px;
   }
 }
